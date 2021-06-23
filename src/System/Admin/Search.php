@@ -14,6 +14,6 @@ class Search extends \Modules\System\Admin\Expend
             $data = array_merge_recursive((array) $data, (array) $value);
         }
         $this->assign('data', $data);
-        return $this->systemView('vendor/duxphp/duxravel-admin/src/System/View/Admin/Search/index');
+        return $this->dialogView('vendor/duxphp/duxravel-admin/src/System/View/Admin/Search/index');
     }
 }
