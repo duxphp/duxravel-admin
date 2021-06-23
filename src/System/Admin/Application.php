@@ -7,7 +7,7 @@ class Application extends \Modules\System\Admin\Common
 
     public function index()
     {
-        $data = app(\Duxravel\Core\Util\Menu::class)->getManage('app');
+        $data = app(\Duxravel\Core\Util\Menu::class)->getAll('app');
         $typeArr = ['business', 'market', 'tools'];
         $typeData = [];
         foreach ($data as $vo) {
