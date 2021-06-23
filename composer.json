@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Modules": "src/",
+      "Modules\\": "src/",
       "Duxravel\\System\\Seeders\\": "database/seeders"
     }
   },
@@ -28,8 +28,8 @@
     },
     "laravel": {
       "providers": [
-        "\\Modules\\System\\Providers\\AppServiceProvider",
-        "\\Modules\\Tools\\Providers\\AppServiceProvider"
+        "Modules\\System\\Providers\\AppServiceProvider",
+        "Modules\\Tools\\Providers\\AppServiceProvider"
       ]
     }
   },
