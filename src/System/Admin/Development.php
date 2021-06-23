@@ -83,7 +83,7 @@ class Development extends Common
         });
         $this->assign('logNumChart', $logNumChart);
 
-        return $this->systemView();
+        return $this->systemView('vendor/duxphp/duxravel-admin/src/System/View/Admin/Development/index');
     }
 
     private function data($label, $data)

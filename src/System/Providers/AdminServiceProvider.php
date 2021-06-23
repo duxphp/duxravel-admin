@@ -29,14 +29,14 @@ class AdminServiceProvider extends ServiceProvider
         $router->group(['prefix' => 'admin', 'public' => true, 'auth_has' => 'admin', 'middleware' => ['web']], function () {
             $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/Admin.php'));
             foreach (glob(base_path('modules') . '/*/Route/Admin.php') as $file) {
-                require $file;
+                $this->loadRoutesFrom($file);
             }
         });
         $router->group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['web', 'auth.manage']], function () {
             $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/AuthAdmin.php'));
 
             foreach (glob(base_path('modules') . '/*/Route/AuthAdmin.php') as $file) {
-                require $file;
+                $this->loadRoutesFrom($file);
             }
         });
 

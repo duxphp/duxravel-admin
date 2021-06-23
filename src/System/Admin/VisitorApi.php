@@ -106,7 +106,7 @@ class VisitorApi extends \Modules\System\Admin\Expend
             return app_error('暂未找到数据');
         }
         $this->assign('apiList', $apiList);
-        return $this->dialogView();
+        return $this->dialogView('vendor/duxphp/duxravel-admin/src/System/View/Admin/VisitorApi/loadTotal');
     }
 
     public function loadDelay()
@@ -130,7 +130,7 @@ class VisitorApi extends \Modules\System\Admin\Expend
             return app_error('暂未找到数据');
         }
         $this->assign('apiList', $apiList);
-        return $this->dialogView();
+        return $this->dialogView('vendor/duxphp/duxravel-admin/src/System/View/Admin/VisitorApi/loadDelay');
     }
 
 }
