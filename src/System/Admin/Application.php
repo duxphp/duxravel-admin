@@ -7,12 +7,7 @@ class Application extends \Modules\System\Admin\Common
 
     public function index()
     {
-
-        $list = app_hook('Service', 'Menu', 'getAppMenu');
-        $data = [];
-        foreach ((array) $list as $value) {
-            $data = array_merge((array) $data, (array) $value);
-        }
+        $data = app(\Duxravel\Core\Util\Menu::class)->getManage('app');
         $typeArr = ['business', 'market', 'tools'];
         $typeData = [];
         foreach ($data as $vo) {
