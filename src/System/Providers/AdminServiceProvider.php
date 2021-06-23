@@ -25,22 +25,15 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-
-        // 别名中间件
-        $router->aliasMiddleware('auth.admin', \Modules\System\Middleware\Auth::class);
-        $router->aliasMiddleware('auth.admin.register', \Modules\System\Middleware\Register::class);
-
-
         // 注册公共路由
-        $router->group(['prefix' => 'admin', 'public' => true, 'auth_has' => 'admin'], function () {
-            $this->loadMigrationsFrom(realpath(__DIR__ . '/../Route/Admin.php'));
-
+        $router->group(['prefix' => 'admin', 'public' => true, 'auth_has' => 'admin', 'middleware' => ['web']], function () {
+            $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/Admin.php'));
             foreach (glob(base_path('modules') . '/*/Route/Admin.php') as $file) {
                 require $file;
             }
         });
-        $router->group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['auth.admin']], function () {
-            $this->loadMigrationsFrom(realpath(__DIR__ . '/../Route/AuthAdmin.php'));
+        $router->group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['web', 'auth.manage']], function () {
+            $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/AuthAdmin.php'));
 
             foreach (glob(base_path('modules') . '/*/Route/AuthAdmin.php') as $file) {
                 require $file;
