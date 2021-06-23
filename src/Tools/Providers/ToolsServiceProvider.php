@@ -27,7 +27,7 @@ class ToolsServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         // 注册基础路由
-        Route::group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['auth.manage']], function () {
+        Route::group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['web', 'auth.manage']], function () {
             $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/AuthAdmin.php'));
         });
 
