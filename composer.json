@@ -1,0 +1,41 @@
+{
+  "name": "duxphp/duxravel-admin",
+  "description": "Duxravel Basic Admin Application",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "DuxPHP",
+      "email": "admin@duxphp.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "duxphp/duxravel-app": "^0.1||^1.0"
+
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules": "src/",
+      "Duxravel\\System\\Seeders\\": "database/seeders"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+    },
+    "laravel": {
+      "providers": [
+        "Modules\\System\\Providers\\AppServiceProvider",
+        "Modules\\Tools\\Providers\\AppServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "preferred-install": "dist"
+  }
+}
