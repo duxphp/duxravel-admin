@@ -7,7 +7,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Modules\Tools\Model\ToolsMenu;
 
-class AppServiceProvider extends ServiceProvider
+class ToolsServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

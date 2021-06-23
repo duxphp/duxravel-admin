@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\System\Providers;
+namespace Modules\Tools\Providers;
 
 use Duxravel\Core\Util\Menu;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class AdminServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

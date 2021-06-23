@@ -28,8 +28,8 @@
     },
     "laravel": {
       "providers": [
-        "Modules\\System\\Providers\\AppServiceProvider",
-        "Modules\\Tools\\Providers\\AppServiceProvider"
+        "Modules\\System\\Providers\\AdminServiceProvider",
+        "Modules\\Tools\\Providers\\ToolsServiceProvider"
       ]
     }
   },
