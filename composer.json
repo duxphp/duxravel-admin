@@ -19,8 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Modules\\System\\": "src/system",
-      "Modules\\Tools\\": "src/tools",
+      "Modules\\": "src",
       "Duxravel\\System\\Seeders\\": "database/seeders"
     }
   },
