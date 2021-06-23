@@ -5,6 +5,7 @@ namespace Modules\System\Providers;
 use Duxravel\Core\Util\Menu;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class AdminServiceProvider extends ServiceProvider
 {
