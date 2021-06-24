@@ -32,13 +32,15 @@ class ToolsServiceProvider extends ServiceProvider
         });
 
         // 注册菜单
-        app(\Duxravel\Core\Util\Menu::class)->add('admin', function () {
-            return app(\Modules\Tools\Service\Menu::class)->getAdminMenu();
-        });
+        if ($router->is('admin/*')) {
+            app(\Duxravel\Core\Util\Menu::class)->add('admin', function () {
+                return app(\Modules\Tools\Service\Menu::class)->getAdminMenu();
+            });
 
-        app(\Duxravel\Core\Util\Menu::class)->add('app', function () {
-            return app(\Modules\Tools\Service\Menu::class)->getAppMenu();
-        });
+            app(\Duxravel\Core\Util\Menu::class)->add('app', function () {
+                return app(\Modules\Tools\Service\Menu::class)->getAppMenu();
+            });
+        }
 
         \Duxravel\Core\Util\Blade::make('marker', \Modules\Tools\Service\Blade::class, 'mark');
         \Duxravel\Core\Util\Blade::loopMake('menu', \Modules\Tools\Service\Blade::class, 'menu');

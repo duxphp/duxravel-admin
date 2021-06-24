@@ -41,9 +41,11 @@ class AdminServiceProvider extends ServiceProvider
         });
 
         // 注册菜单
-        app(\Duxravel\Core\Util\Menu::class)->add('admin', function () {
-            return app(\Modules\System\Service\Menu::class)->getAdminMenu();
-        });
+        if ($router->is('admin/*')) {
+            app(\Duxravel\Core\Util\Menu::class)->add('admin', function () {
+                return app(\Modules\System\Service\Menu::class)->getAdminMenu();
+            });
+        }
 
         // 注册数据库目录
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../../database/migrations'));
