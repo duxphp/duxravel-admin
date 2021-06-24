@@ -29,13 +29,15 @@ class AdminServiceProvider extends ServiceProvider
         // 注册公共路由
         $router->group(['prefix' => 'admin', 'public' => true, 'auth_has' => 'admin', 'middleware' => ['web']], function () {
             $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/Admin.php'));
-            foreach (glob(base_path('modules') . '/*/Route/Admin.php') as $file) {
+            $list = \Duxravel\Core\Util\Cache::globList(base_path('modules') . '/*/Route/Admin.php');
+            foreach ($list as $file) {
                 $this->loadRoutesFrom($file);
             }
         });
         $router->group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['auth.manage']], function () {
             $this->loadRoutesFrom(realpath(__DIR__ . '/../Route/AuthAdmin.php'));
-            foreach (glob(base_path('modules') . '/*/Route/AuthAdmin.php') as $file) {
+            $list = \Duxravel\Core\Util\Cache::globList(base_path('modules') . '/*/Route/AuthAdmin.php');
+            foreach ($list as $file) {
                 $this->loadRoutesFrom($file);
             }
         });
