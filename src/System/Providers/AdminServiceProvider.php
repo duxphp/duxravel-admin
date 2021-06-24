@@ -41,7 +41,7 @@ class AdminServiceProvider extends ServiceProvider
         });
 
         // 注册菜单
-        if ($router->is('admin/*')) {
+        if (\Request::is('admin/*')) {
             app(\Duxravel\Core\Util\Menu::class)->add('admin', function () {
                 return app(\Modules\System\Service\Menu::class)->getAdminMenu();
             });
