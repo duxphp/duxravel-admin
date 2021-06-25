@@ -40,7 +40,7 @@
       "route": [
         "src/System/Route/Admin.php",
         "src/System/Route/AuthAdmin.php",
-        "src/System/Tools/AuthAdmin.php"
+        "src/Tools/Route/AuthAdmin.php"
       ]
     }
   },
