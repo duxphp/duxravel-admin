@@ -31,6 +31,17 @@
         "Modules\\System\\Providers\\AdminServiceProvider",
         "Modules\\Tools\\Providers\\ToolsServiceProvider"
       ]
+    },
+    "duxravel": {
+      "service": [
+        "Modules\\System\\Service\\Menu",
+        "Modules\\Tools\\Service\\Menu"
+      ],
+      "route": [
+        "src/System/Route/Admin.php",
+        "src/System/Route/AuthAdmin.php",
+        "src/System/Tools/AuthAdmin.php"
+      ]
     }
   },
   "config": {
