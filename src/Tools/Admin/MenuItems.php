@@ -65,9 +65,6 @@ class MenuItems extends MenuExpend
 
         $form->front(function ($data, $type, $model) {
             $model->menu_id = $this->menuId;
-            if ($data['parent_id']) {
-                $model = $model->appendToNode($this->model::find($data['parent_id']));
-            }
             return $model;
         });
 
