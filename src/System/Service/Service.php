@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Tools\Service;
+namespace Modules\System\Service;
 
 /**
  * 系统服务接口

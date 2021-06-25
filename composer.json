@@ -13,7 +13,6 @@
   "prefer-stable": true,
   "require": {
     "duxphp/duxravel-app": "*"
-
   },
   "require-dev": {
   },
@@ -34,6 +33,7 @@
     },
     "duxravel": {
       "service": [
+        "Modules\\System\\Service\\Service",
         "Modules\\System\\Service\\Menu",
         "Modules\\Tools\\Service\\Menu"
       ],
