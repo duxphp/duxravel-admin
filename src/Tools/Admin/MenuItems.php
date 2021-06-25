@@ -63,7 +63,7 @@ class MenuItems extends MenuExpend
             'required' => '请填写菜单链接',
         ])->afterText("<a class='block cursor-pointer' href='javascript:;' data-js='dialog-open' data-type='ajax' data-url='$url' data-layout='false'>选择</a>");
 
-        $form->before(function ($data, $type, $model) {
+        $form->front(function ($data, $type, $model) {
             $model->menu_id = $this->menuId;
             if ($data['parent_id']) {
                 $model = $model->appendToNode($this->model::find($data['parent_id']));
