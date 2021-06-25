@@ -2,10 +2,8 @@
 
 namespace Modules\Tools\Providers;
 
-use Duxravel\Core\Util\Menu;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Modules\Tools\Model\ToolsMenu;
 use Illuminate\Support\Facades\Route;
 
 class ToolsServiceProvider extends ServiceProvider
