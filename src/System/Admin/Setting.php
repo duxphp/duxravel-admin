@@ -39,6 +39,7 @@ class Setting extends \Modules\System\Admin\Expend
             'IMAGE_WATER_ALPHA' => env('IMAGE_WATER_ALPHA'),
             'IMAGE_WATER_IMAGE' => env('IMAGE_WATER_IMAGE'),
             'THEME_DEFAULT' => env('THEME_DEFAULT'),
+            'THEME_MOBILE' => env('THEME_MOBILE'),
             'THEME_TITLE' => env('THEME_TITLE'),
             'THEME_KEYWORD' => env('THEME_KEYWORD'),
             'THEME_DESCRIPTION' => env('THEME_DESCRIPTION'),
@@ -60,7 +61,8 @@ class Setting extends \Modules\System\Admin\Expend
             $form->text('主题标题', 'THEME_TITLE');
             $form->text('主题关键词', 'THEME_KEYWORD');
             $form->text('主题描述', 'THEME_DESCRIPTION');
-            $form->text('默认主题', 'THEME_DEFAULT');
+            $form->text('pc端主题', 'THEME_DEFAULT');
+            $form->text('移动端主题', 'THEME_MOBILE');
         });
 
         $tabs->column('安全配置', function (Form $form) {
