@@ -77,7 +77,7 @@ class Task extends \Modules\System\Admin\Expend
                 $card->item('全部队列', $statsAll, Widget::icon('cloud'), 'blue');
                 $card->item('处理中', $statsDown, Widget::icon('cloud-download'), 'green');
                 $card->item('待处理', $statsUp, Widget::icon('cloud-upload'), 'yellow');
-                $statsFail = module('Common.Model.JobsFailed')->count();
+                $statsFail = Duxravel\Core\Model\JobsFailed::count();
                 $card->item('失败队列', $statsFail, Widget::icon('ban'), 'red');
             }));
 
