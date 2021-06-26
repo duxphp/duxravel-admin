@@ -40,9 +40,13 @@ class Blade
         ];
         $data = new \Modules\Tools\Model\ToolsMenuItems();
         $data = $data->scoped(['menu_id' => $params['id']]);
-        $data = $data->where('parent_id', $params['parent_id']);
-        $data = $data->limit($params['limit']);
-        return $data->get()->toTree();
+
+        if ($params['parent']) {
+            $data = $data->where('item_id', $params['parent'])->first()->descendants()->get()->toTree();
+        } else {
+            $data = $data->get()->toTree();
+        }
+        return $data;
 
     }
 }
