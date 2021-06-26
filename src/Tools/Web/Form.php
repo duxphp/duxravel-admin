@@ -42,7 +42,7 @@ class Form extends Base
         $rules = ['captcha' => 'required|captcha'];
         $validator = validator()->make(request()->input(), $rules);
         if ($validator->fails()) {
-            return app_error('验证码输入有误');
+            app_error('验证码输入有误');
         }
 
         $lastInfo = \Duxravel\Core\Service\FormData::latest()->first();
