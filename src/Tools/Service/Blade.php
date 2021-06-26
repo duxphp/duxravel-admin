@@ -19,11 +19,19 @@ class Blade
     {
         $params = [
             'id' => $args['id'] ?: null,
+            'name' => $args['name'] ?: null
         ];
-        if (!$params['id']) {
+        if (!$params['id'] && !$params['name']) {
             return '';
         }
-        return ToolsMark::where(['mark_id' => $params['id']])->value('content');
+        $model = new ToolsMark();
+        if ($params['id']) {
+            $model = $model->where(['mark_id' => $params['id']]);
+        }
+        if ($params['name']) {
+            $model = $model->where(['name' => $params['name']]);
+        }
+        return $model->value('content');
     }
 
     /**
