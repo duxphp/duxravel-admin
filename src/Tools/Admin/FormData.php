@@ -20,6 +20,7 @@ class FormData extends \Modules\System\Admin\Expend
     {
         $table = new \Duxravel\Core\UI\Table(new $this->model());
         $table->model()->orderBy('data_id', 'desc');
+        $table->model()->where('form_id', $this->formInfo->form_id);
         $table->title($this->formInfo->name);
 
         $table->action()->button('添加', 'admin.tools.formData.page', ['form' => $this->formInfo->form_id])->type('dialog');
