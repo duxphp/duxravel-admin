@@ -34,10 +34,14 @@ class Mark extends \Modules\System\Admin\Expend
         $form->text('标记名称', 'name');
         $form->radio('标记类型', 'type', [
             'text' => '纯文本',
-            'editor' => '富文本'
+            'editor' => '富文本',
+            'image' => '图片',
+            'file' => '文件',
         ])->switch('type');
         $form->textarea('标记内容', 'type_text')->value($info->type === 'text' ? $info->content : '')->group('type', 'text');
         $form->editor('标记内容', 'type_editor')->value($info->type === 'editor' ? $info->content : '')->group('type', 'editor');
+        $form->editor('标记内容', 'type_image')->image($info->type === 'image' ? $info->content : '')->group('type', 'image');
+        $form->editor('标记内容', 'type_file')->file($info->type === 'file' ? $info->content : '')->group('type', 'file');
         $form->before(function ($data, $type, $model) {
             $model->content = $data['type_' . $data['type']];
         });
