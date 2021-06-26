@@ -45,7 +45,7 @@ class Form extends Base
             app_error('验证码输入有误');
         }
 
-        $lastInfo = \Duxravel\Core\Service\FormData::latest()->first();
+        $lastInfo = \Duxravel\Core\Model\FormData::latest()->first();
 
         if ($lastInfo->create_time->lt($formInfo['Interval'])) {
             app_error('提交太快了，请稍等');
