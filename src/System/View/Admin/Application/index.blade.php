@@ -37,7 +37,7 @@
                 <div>
                     <a href="{{route('admin.tools.formData', ['form' => $vo->form_id])}}" class="flex items-center space-x-2 shadow bg-gradient-to-r from-purple-900 to-purple-800 p-4 rounded text-white hover:ring hover:ring-purple-900 hover:ring-offset-2 ">
                     <div class="flex-none w-10 h-10">
-                            {!! file_get_contents(module_path('System/Static/Image/form.svg')) !!}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                         </div>
                         <div class="flex-grow">
                             <h3 class="mb-0">{{$vo['name']}}</h3>

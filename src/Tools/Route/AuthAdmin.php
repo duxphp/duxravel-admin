@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix'   => 'tools',
+    'prefix' => 'tools',
     'auth_app' => '扩展工具'
 ], function () {
 
@@ -27,7 +27,7 @@ Route::group([
     Route::group([
         'auth_group' => '表单数据'
     ], function () {
-        Route::manage(\Modules\Tools\Admin\FormData::class)->only(['index', 'data', 'page', 'save', 'del'])->make();
+        Route::manage(\Modules\Tools\Admin\FormData::class)->only(['index', 'data', 'page', 'save', 'status', 'del'])->make();
     });
 
     Route::group([

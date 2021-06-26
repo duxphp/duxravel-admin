@@ -25,12 +25,18 @@ class FormData extends \Modules\System\Admin\Expend
         $table->action()->button('添加', 'admin.tools.formData.page', ['form' => $this->formInfo->form_id])->type('dialog');
         $table->filterParams('form', $this->formInfo->form_id);
 
-        foreach ($this->formInfo->data as $vo) {
-            if ($vo['type'] == 'text') {
-                $table->filter($vo['name'], $vo['field'], function ($query, $value) use ($vo) {
-                    $query->where('data->'.$vo['field'], $value);
-                })->text('请输入'.$vo['name'].'搜索')->quick();
-                break;
+        if ($this->formInfo->search) {
+            $table->filter('搜索', $this->formInfo->search, function ($query, $value) use ($vo) {
+                $query->where('data->' . $this->formInfo->search, $value);
+            })->text('请输入关键词搜索')->quick();
+        } else {
+            foreach ($this->formInfo->data as $vo) {
+                if ($vo['type'] == 'text') {
+                    $table->filter($vo['name'], $vo['field'], function ($query, $value) use ($vo) {
+                        $query->where('data->' . $vo['field'], $value);
+                    })->text('请输入' . $vo['name'] . '搜索')->quick();
+                    break;
+                }
             }
         }
 
@@ -38,14 +44,15 @@ class FormData extends \Modules\System\Admin\Expend
         foreach ($this->formInfo->data as $vo) {
             if ($vo['list']) {
                 if ($vo['type'] == 'image') {
-                    $table->column($vo['name'])->image('data->'.$vo['field'], function ($value) {
+                    $table->column($vo['name'])->image('data->' . $vo['field'], function ($value) {
                         return $value ?: '无';
                     });
                 } else {
-                    $table->column($vo['name'], 'data->'.$vo['field']);
+                    $table->column($vo['name'], 'data->' . $vo['field']);
                 }
             }
         }
+        $table->column('状态', 'status')->toggle('status', 'admin.tools.formData.status', ['form' => $this->formInfo->form_id, 'id' => 'data_id'])->width(100);
 
         $column = $table->column('操作')->width(100);
         $column->link('编辑', 'admin.tools.formData.page', ['form' => $this->formInfo->form_id, 'id' => 'data_id'])->type('dialog');
@@ -67,7 +74,7 @@ class FormData extends \Modules\System\Admin\Expend
     {
         $data = $this->form($id)->save();
         app(\Duxravel\Core\Service\Form::class)->saveForm($this->formInfo->form_id, $data, $id);
-        return app_success('更新'.$this->formInfo['menu'].'成功', [], route('admin.tools.formData', ['form' => $this->formInfo->form_id]));
+        return app_success('更新' . $this->formInfo['menu'] . '成功', [], route('admin.tools.formData', ['form' => $this->formInfo->form_id]));
     }
 
 }

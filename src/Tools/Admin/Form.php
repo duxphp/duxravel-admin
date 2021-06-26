@@ -16,7 +16,7 @@ class Form extends \Modules\System\Admin\Expend
         $table->action()->button('添加', 'admin.tools.form.page')->type('dialog');
 
         $table->filter('名称', 'name', function ($query, $value) {
-            $query->where('name', 'like', '%'.$value.'%');
+            $query->where('name', 'like', '%' . $value . '%');
         })->text('请输入表单名搜索')->quick();
 
         $table->column('#', 'form_id')->width(80);
@@ -48,14 +48,24 @@ class Form extends \Modules\System\Admin\Expend
             'required' => '请填写表单功能描述',
         ]);
 
-        $form->textarea('菜单名', 'menu')->placeholder('可选，独立表单菜单名');
-
         $form->radio('表单类型', 'manage', [
-            0 => '独立管理',
             1 => '应用集成',
-        ]);
+            0 => '独立管理',
+        ])->switch('manage');
 
-
+        $form->text('菜单名', 'menu')->group('manage', 0);
+        $form->text('搜索字段', 'search')->group('manage', 0);
+        $form->text('列表模板', 'tpl_list')->placeholder('留空关闭列表')->group('manage', 0);
+        $form->text('详情模板', 'tpl_info')->placeholder('留空关闭详情')->group('manage', 0);
+        $form->radio('前台提交', 'submit', [
+            1 => '正常',
+            0 => '禁用',
+        ])->group('manage', 0);
+        $form->number('提交间隔', 'interval')->group('manage', 0);
+        $form->radio('内容审核', 'audit', [
+            1 => '需要',
+            0 => '无需',
+        ])->group('manage', 0);
         return $form;
     }
 
