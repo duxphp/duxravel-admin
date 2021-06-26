@@ -36,7 +36,7 @@ class Form extends Base
     public function push($id)
     {
         $formInfo = \Duxravel\Core\Model\Form::find($id);
-        if (!$formInfo || !$formInfo->tpl_list || $formInfo->manage || !$formInfo->submit) {
+        if (!$formInfo || $formInfo->manage || !$formInfo->submit) {
             app_error('表单不存在', 404);
         }
         $rules = ['captcha' => 'required|captcha'];
