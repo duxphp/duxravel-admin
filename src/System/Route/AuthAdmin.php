@@ -19,7 +19,7 @@ Route::group(['public' => true], function () {
     Route::get('system/visitorApi/loadTotal', ['uses' => 'Modules\System\Admin\VisitorApi@loadTotal', 'desc' => '访问统计'])->name('admin.system.visitorApi.loadTotal');
     Route::get('system/visitorApi/loadDelay', ['uses' => 'Modules\System\Admin\VisitorApi@loadDelay', 'desc' => '延迟统计'])->name('admin.system.visitorApi.loadDelay');
     Route::get('system/visitorOperate/loadData', ['uses' => 'Modules\System\Admin\VisitorOperate@loadData', 'desc' => '操作日志'])->name('admin.system.visitorOperate.loadData');
-    Route::get('system/visitorViews/info', ['uses' => 'Duxravel\Core\Manage\VisitorViews@info', 'desc' => '访客详情'])->name('admin.system.visitorViews.info');
+    Route::get('system/visitorViews/info', ['uses' => 'Modules\System\Admin\VisitorViews@info', 'desc' => '访客详情'])->name('admin.system.visitorViews.info');
 
 });
 
