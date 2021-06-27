@@ -68,8 +68,17 @@ class Form extends Base
                 }
             }
             $files = \Duxravel\Core\Util\Upload::load('web');
+            $fileData = [];
             foreach ($files as $file) {
-                $input[$file['field']] = $file['url'];
+                $fileData[$file['field']][] = $file;
+            }
+            foreach ($formData as $vo) {
+                if ($vo['type'] === 'image' || $vo['type'] === 'file') {
+                    $input[$vo['field']] = $fileData[$vo['field']][0];
+                }
+                if ($vo['type'] === 'images') {
+                    $input[$vo['field']] = $fileData[$vo['field']];
+                }
             }
         }
 
