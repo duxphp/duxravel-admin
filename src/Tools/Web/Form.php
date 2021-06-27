@@ -51,7 +51,30 @@ class Form extends Base
             app_error('提交太快了，请稍等');
         }
 
-        \Duxravel\Core\Util\Form::saveForm($id, request()->input());
+        $input = request()->input();
+        $formData = $formInfo->data;
+        $uploadFields = [];
+        foreach ($formData as $vo) {
+            if ($vo['type'] === 'image' || $vo['type'] === 'file' || $vo['type'] === 'images') {
+                $uploadFields[] = $vo['field'];
+            }
+        }
+        if ($uploadFields) {
+            $files = request()->allFiles();
+            $filetKeys = array_keys($files);
+            foreach ($filetKeys as $key) {
+                if (!in_array($key, $uploadFields)) {
+                    app_error('非法文件上传');
+                }
+            }
+            $files = \Duxravel\Core\Util\Upload::load('web');
+            foreach ($files as $file) {
+                $input[$file['field']] = $file['url'];
+            }
+        }
+
+
+        \Duxravel\Core\Util\Form::saveForm($id, $input);
         return app_success('提交成功' . ($formInfo->audit ? '，请耐心等待审核' : ''));
     }
 }
