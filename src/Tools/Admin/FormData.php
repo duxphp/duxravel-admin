@@ -67,14 +67,14 @@ class FormData extends \Modules\System\Admin\Expend
         $form = new \Duxravel\Core\UI\Form();
         $form->dialog(true);
         $form->action(route('admin.tools.formData.save', ['id' => $id, 'form' => $this->formInfo->form_id]));
-        app(\Duxravel\Core\Service\Form::class)->getFormUI($this->formInfo->form_id, $form, $id);
+        app(\Duxravel\Core\Util\Form::class)->getFormUI($this->formInfo->form_id, $form, $id);
         return $form;
     }
 
     public function save($id)
     {
         $data = $this->form($id)->save();
-        app(\Duxravel\Core\Service\Form::class)->saveForm($this->formInfo->form_id, $data, $id);
+        app(\Duxravel\Core\Util\Form::class)->saveForm($this->formInfo->form_id, $data, $id);
         return app_success('更新' . $this->formInfo['menu'] . '成功', [], route('admin.tools.formData', ['form' => $this->formInfo->form_id]));
     }
 

@@ -51,7 +51,7 @@ class Form extends Base
             app_error('提交太快了，请稍等');
         }
 
-        \Duxravel\Core\Service\Form::saveForm($id, request()->input());
+        \Duxravel\Core\Util\Form::saveForm($id, request()->input());
         return app_success('提交成功' . ($formInfo->audit ? '，请耐心等待审核' : ''));
     }
 }
