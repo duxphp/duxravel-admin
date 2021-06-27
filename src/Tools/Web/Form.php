@@ -74,14 +74,13 @@ class Form extends Base
             }
             foreach ($formData as $vo) {
                 if ($vo['type'] === 'image' || $vo['type'] === 'file') {
-                    $input[$vo['field']] = $fileData[$vo['field']][0];
+                    $input[$vo['field']] = $fileData[$vo['field']][0]['url'];
                 }
                 if ($vo['type'] === 'images') {
-                    $input[$vo['field']] = $fileData[$vo['field']];
+                    $input[$vo['field']] = array_column($fileData[$vo['field']], 'url');
                 }
             }
         }
-
 
         \Duxravel\Core\Util\Form::saveForm($id, $input);
         return app_success('提交成功' . ($formInfo->audit ? '，请耐心等待审核' : ''));
