@@ -27,7 +27,7 @@ class Form extends Base
         if (!$formInfo || !$formInfo->tpl_info || $formInfo->manage) {
             app_error('表单不存在', 404);
         }
-        $tpl = $info->tpl ?: 'page';
+        $tpl = $info->tpl_info ?: 'page';
         $this->assign('formInfo', $formInfo);
         $this->assign('info', $info);
         return $this->view($tpl);
