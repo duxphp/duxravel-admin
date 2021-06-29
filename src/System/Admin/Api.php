@@ -19,7 +19,7 @@ class Api extends \Modules\System\Admin\Expend
 
         $table->column('描述', 'name');
         $table->column('SECRET_ID', 'secret_id');
-        $table->column('secret_key', 'secret_key')->hidden();
+        $table->column('SECRET_KEY', 'secret_key')->hidden();
 
         $table->column('状态', 'status')->status([
             1 => '正常',
