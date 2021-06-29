@@ -31,7 +31,7 @@ class AdminServiceProvider extends ServiceProvider
                 $this->loadRoutesFrom($file);
             }
         });
-        $router->group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['auth.manage']], function () {
+        $router->group(['prefix' => 'admin', 'auth_has' => 'admin', 'middleware' => ['web', 'auth.manage']], function () {
             $list = \Duxravel\Core\Util\Cache::routeList('AuthAdmin');
             foreach ($list as $file) {
                 $this->loadRoutesFrom($file);
