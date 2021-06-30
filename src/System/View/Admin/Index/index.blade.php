@@ -132,7 +132,7 @@
                                   d="M19 9l-7 7-7-7"/>
                         </svg>
                     </div>
-                    <ul x-show="open" @click.away="open = false"
+                    <ul x-show="open" @click.outside="open = false"
                         class="shadow absolute right-0 w-40 pt-1 pb-1 rounded-sm bg-white border border-gray-400 z-10">
                         <li>
                             <a href="" class="block p-2 hover:bg-gray-200">最近12小时</a>
