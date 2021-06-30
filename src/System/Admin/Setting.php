@@ -166,8 +166,8 @@ class Setting extends \Modules\System\Admin\Expend
 
     private function getValue($value)
     {
-        $value = str_replace("'", "\\'", $value);
         if (is_string($value)) {
+            $value = str_replace("'", "\\'", $value);
             $value = '"' . $value . '"';
         }
         return $value;
