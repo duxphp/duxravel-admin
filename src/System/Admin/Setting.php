@@ -140,7 +140,7 @@ class Setting extends \Modules\System\Admin\Expend
             foreach ($data as $key => $vo) {
                 if (str_contains($item, $key . '=')) {
                     $useKeys[] = $key;
-                    return $key . '=' . $vo;
+                    return $key . '=' . $this->getValue($vo);
                 }
             }
             return $item;
@@ -155,12 +155,21 @@ class Setting extends \Modules\System\Admin\Expend
         if ($diffData) {
             $contentArray->push('');
             foreach ($diffData as $key => $vo) {
-                $contentArray->push($key . '=' . $vo);
+                $contentArray->push($key . '=' . $this->getValue($vo));
             }
         }
 
         $content = implode("\n", $contentArray->toArray());
         \File::put($envPath, $content);
         return app_success('保存配置成功');
+    }
+
+    private function getValue($value)
+    {
+        $value = str_replace("'", "\\'", $value);
+        if (is_string($value)) {
+            $value = '"' . $value . '"';
+        }
+        return $value;
     }
 }
