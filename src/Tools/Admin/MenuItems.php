@@ -56,7 +56,7 @@ class MenuItems extends MenuExpend
         ], [
             'required' => '请填写菜单名称',
         ]);
-        $url = route('admin.tools.url', ['menu' => $this->menuId]);
+        $url = route('admin.tools.url');
         $form->text('菜单链接', 'url')->verify([
             'required',
         ], [
