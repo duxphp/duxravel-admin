@@ -14,6 +14,7 @@ class Pages extends Base
             app_error('页面不存在', 404);
         }
         $tpl = $info->tpl ?: 'page';
+        $this->meta($info->name, $info->keywords, $info->description);
         $this->assign('info', $info ?: collect());
         return $this->view($tpl);
     }
