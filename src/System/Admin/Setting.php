@@ -18,32 +18,9 @@ class Setting extends \Modules\System\Admin\Expend
     {
         //$this->dispatch(new \Duxravel\Core\Jobs\Task(\Modules\System\Service\Menu::class, 'test', [], 20));
 
+        $dotenv = \Dotenv\Dotenv::createArrayBacked(base_path())->load();
         $environment = app()->environment();
-        $data = collect([
-            'APP_NAME' => env('APP_NAME'),
-            'APP_URL' => env('APP_URL'),
-            'APP_DEBUG' => env('APP_DEBUG'),
-            'LOG_CHANNEL' => env('LOG_CHANNEL'),
-            'LOG_LEVEL' => env('LOG_LEVEL'),
-            'BROADCAST_DRIVER' => env('BROADCAST_DRIVER'),
-            'CACHE_DRIVER' => env('CACHE_DRIVER'),
-            'QUEUE_CONNECTION' => env('QUEUE_CONNECTION'),
-            'SESSION_DRIVER' => env('SESSION_DRIVER'),
-            'SESSION_LIFETIME' => env('SESSION_LIFETIME'),
-            'FILESYSTEM_DRIVER' => env('FILESYSTEM_DRIVER'),
-            'IMAGE_DRIVER' => env('IMAGE_DRIVER'),
-            'IMAGE_THUMB' => env('IMAGE_THUMB'),
-            'IMAGE_THUMB_WIDTH' => env('IMAGE_THUMB_WIDTH'),
-            'IMAGE_THUMB_HEIGHT' => env('IMAGE_THUMB_HEIGHT'),
-            'IMAGE_WATER' => env('IMAGE_WATER'),
-            'IMAGE_WATER_ALPHA' => env('IMAGE_WATER_ALPHA'),
-            'IMAGE_WATER_IMAGE' => env('IMAGE_WATER_IMAGE'),
-            'THEME_DEFAULT' => env('THEME_DEFAULT'),
-            'THEME_MOBILE' => env('THEME_MOBILE'),
-            'THEME_TITLE' => env('THEME_TITLE'),
-            'THEME_KEYWORD' => env('THEME_KEYWORD'),
-            'THEME_DESCRIPTION' => env('THEME_DESCRIPTION'),
-        ]);
+        $data = collect(\Dotenv\Dotenv::createArrayBacked(base_path())->load());
         $form = new \Duxravel\Core\UI\Form($data, false);
         $form->title('系统设置', false);
         $form->action(route('admin.system.setting.save'));
@@ -149,6 +126,9 @@ class Setting extends \Modules\System\Admin\Expend
             $form->text('水印透明度', 'IMAGE_WATER_ALPHA')->type('number')->afterText('%');
             $form->text('水印路径', 'IMAGE_WATER_IMAGE')->beforeText('resources/');
         });
+
+        app_hook('Manage', 'form', ['class' => get_called_class(), 'form' => &$form]);
+
         return $form;
     }
 
@@ -157,14 +137,30 @@ class Setting extends \Modules\System\Admin\Expend
         $data = $this->form()->save()->toArray();
         $envPath = base_path() . DIRECTORY_SEPARATOR . '.env';
         $contentArray = collect(file($envPath, FILE_IGNORE_NEW_LINES));
-        $contentArray->transform(function ($item) use ($data) {
+        $useKeys = [];
+        $contentArray->transform(function ($item) use ($data, &$useKeys) {
             foreach ($data as $key => $vo) {
                 if (str_contains($item, $key . '=')) {
+                    $useKeys[] = $key;
                     return $key . '=' . $vo;
                 }
             }
             return $item;
         });
+
+        $diffData = [];
+        foreach ($data as $key => $vo) {
+            if (!in_array($key, $useKeys)) {
+                $diffData[$key] = $vo;
+            }
+        }
+        if ($diffData) {
+            $contentArray->push('');
+            foreach ($diffData as $key => $vo) {
+                $contentArray->push($key . '=' . $vo);
+            }
+        }
+
         $content = implode("\n", $contentArray->toArray());
         \File::put($envPath, $content);
         return app_success('保存配置成功');
