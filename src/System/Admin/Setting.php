@@ -18,8 +18,6 @@ class Setting extends \Modules\System\Admin\Expend
     {
         //$this->dispatch(new \Duxravel\Core\Jobs\Task(\Modules\System\Service\Menu::class, 'test', [], 20));
 
-        $dotenv = \Dotenv\Dotenv::createArrayBacked(base_path())->load();
-        $environment = app()->environment();
         $data = collect(\Dotenv\Dotenv::createArrayBacked(base_path())->load());
         $form = new \Duxravel\Core\UI\Form($data, false);
         $form->title('系统设置', false);
