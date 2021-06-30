@@ -147,7 +147,7 @@
             <div class="flex items-center relative">
                 <span class="text-base flex-grow">访问排名</span>
                 <div class="flex-none select-none" x-data="system.loadArea({data: [7, 30, 90], active: 7, target: '#api-total', url: '{{ route("admin.system.visitorApi.loadTotal") }}'})" x-init="loadData()">
-                    <div class="text-gray-500 cursor-pointer " x-spread="el">
+                    <div class="text-gray-500 cursor-pointer " x-bind="el">
                         最近<span x-text="active"></span>天
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
@@ -155,7 +155,7 @@
                                   d="M19 9l-7 7-7-7"/>
                         </svg>
                     </div>
-                    <ul x-spread="menu"
+                    <ul x-bind="menu"
                         class="shadow absolute right-0 w-40 pt-1 pb-1 rounded-sm bg-white border border-gray-400 z-10">
                         <template x-for="item in data">
                             <li>
@@ -171,7 +171,7 @@
             <div class="flex items-center relative">
                 <span class="text-base flex-grow">响应排名</span>
                 <div class="flex-none select-none" x-data="system.loadArea({data: [7, 30, 90], active: 7, target: '#api-delay', url: '{{ route("admin.system.visitorApi.loadDelay") }}'})" x-init="loadData()">
-                    <div class="text-gray-500 cursor-pointer " x-spread="el">
+                    <div class="text-gray-500 cursor-pointer " x-bind="el">
                         最近<span x-text="active"></span>天
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
@@ -179,7 +179,7 @@
                                   d="M19 9l-7 7-7-7"/>
                         </svg>
                     </div>
-                    <ul x-spread="menu"
+                    <ul x-bind="menu"
                         class="shadow absolute right-0 w-40 pt-1 pb-1 rounded-sm bg-white border border-gray-400 z-10">
                         <template x-for="item in data">
                             <li>
@@ -198,7 +198,7 @@
             <div class="flex items-center relative">
                 <span class="text-base flex-grow">操作日志</span>
                 <div class="flex-none select-none" x-data="system.loadArea({data: [7, 30, 90], active: 7, target: '#api-log', url: '{{ route("admin.system.visitorOperate.loadData") }}'})" x-init="loadData()">
-                    <div class="text-blue-900 cursor-pointer " x-spread="el">
+                    <div class="text-blue-900 cursor-pointer " x-bind="el">
                         <a href="">更多日志</a>
                     </div>
                 </div>
