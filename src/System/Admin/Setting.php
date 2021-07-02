@@ -92,11 +92,7 @@ class Setting extends \Modules\System\Admin\Expend
 
         });
 
-        $tabs->column('上传配置', function ($form) {
-            $data = \collect(config('filesystems.disks'))->map(function ($item, $key) {
-                return $key;
-            })->toArray();
-            $form->select('上传驱动', 'FILESYSTEM_DRIVER', $data);
+        $tabs->column('图片处理', function ($form) {
             $form->radio('图片驱动', 'IMAGE_DRIVER', [
                 'gd' => 'gd',
                 'imagick' => 'imagick',
@@ -123,6 +119,20 @@ class Setting extends \Modules\System\Admin\Expend
             ]);
             $form->text('水印透明度', 'IMAGE_WATER_ALPHA')->type('number')->afterText('%');
             $form->text('水印路径', 'IMAGE_WATER_IMAGE')->beforeText('resources/');
+        });
+
+        $tabs->column('上传驱动', function ($form) {
+            $form->text('OSS上传地址', 'OSS_HOST');
+            $form->text('OSS bucket', 'OSS_BUCKET');
+            $form->text('OSS access_key', 'OSS_AK');
+            $form->text('OSS secret_key', 'OSS_SK');
+            $form->text('OSS endpoint', 'OSS_ENDPOINT');
+            $form->text('策略有效时间', 'OSS_EXPIRE')->beforeText('秒');
+            $form->text('七牛 access_key', 'QINIU_AK');
+            $form->text('七牛 secret_key', 'QINIU_SK');
+            $form->text('七牛外链域名', 'QINIU_HOST');
+            $form->text('七牛 bucket', 'QINIU_BUCKET');
+            $form->text('策略有效时间', 'QINIU_EXPIRE');
         });
 
         app_hook('Manage', 'form', ['class' => get_called_class(), 'form' => &$form]);
