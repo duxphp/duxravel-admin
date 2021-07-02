@@ -122,6 +122,7 @@ class Setting extends \Modules\System\Admin\Expend
         });
 
         $tabs->column('上传驱动', function ($form) {
+            $form->text('上传驱动', 'FILESYSTEM_DRIVER');
             $form->text('OSS上传地址', 'OSS_HOST');
             $form->text('OSS bucket', 'OSS_BUCKET');
             $form->text('OSS access_key', 'OSS_AK');
