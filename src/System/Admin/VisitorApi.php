@@ -75,10 +75,10 @@ class VisitorApi extends \Modules\System\Admin\Expend
         })->desc('name');
         $table->column('访问量', 'pv');
         $table->column('访客', 'uv');
-        $table->column('最大相应', 'max', function($value) {
+        $table->column('最大响应', 'max', function($value) {
             return $value . 's';
         });
-        $table->column('最小相应', 'min', function($value) {
+        $table->column('最小响应', 'min', function($value) {
             return $value . 's';
         });
 
