@@ -50,9 +50,9 @@ class Blade
         $data = $data->scoped(['menu_id' => $params['id']]);
 
         if ($params['parent']) {
-            $data = $data->where('item_id', $params['parent'])->first()->descendants()->get()->toTree();
+            $data = $data->where('item_id', $params['parent'])->first()->descendants()->get()->toTree()->take($params['limit']);
         } else {
-            $data = $data->get()->toTree();
+            $data = $data->get()->toTree()->take($params['limit']);
         }
         return $data;
 
