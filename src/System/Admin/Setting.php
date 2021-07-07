@@ -121,22 +121,31 @@ class Setting extends \Modules\System\Admin\Expend
             $form->text('水印路径', 'IMAGE_WATER_IMAGE')->beforeText('resources/');
         });
 
-        $tabs->column('上传驱动', function ($form) {
+        $tabs->column('上传设置', function ($form) {
             $data = \collect(config('filesystems.disks'))->map(function ($item, $key) {
                 return $key;
             })->toArray();
             $form->select('上传驱动', 'FILESYSTEM_DRIVER', $data);
-            $form->text('OSS上传地址', 'OSS_HOST');
-            $form->text('OSS bucket', 'OSS_BUCKET');
-            $form->text('OSS access_key', 'OSS_AK');
-            $form->text('OSS secret_key', 'OSS_SK');
-            $form->text('OSS endpoint', 'OSS_ENDPOINT');
-            $form->text('策略有效时间', 'OSS_EXPIRE')->beforeText('秒');
-            $form->text('七牛 access_key', 'QINIU_AK');
-            $form->text('七牛 secret_key', 'QINIU_SK');
-            $form->text('七牛外链域名', 'QINIU_HOST');
-            $form->text('七牛 bucket', 'QINIU_BUCKET');
+        });
+
+        $tabs->column('七牛存储', function ($form) {
+            $form->text('access key', 'QINIU_AK');
+            $form->text('secret key', 'QINIU_SK');
+            $form->text('bucket', 'QINIU_BUCKET');
+            $form->text('访问域名', 'QINIU_HOST');
             $form->text('策略有效时间', 'QINIU_EXPIRE');
+        });
+
+        $tabs->column('腾讯云存储', function ($form) {
+            $form->text('app id', 'COS_APP_ID');
+            $form->text('secret id', 'COS_SECRET_ID');
+            $form->text('secret key', 'COS_SECRET_KEY');
+            $form->text('地区标识', 'COS_REGION');
+            $form->text('bucket', 'COS_BUCKET');
+            $form->text('CDN 域名', 'COS_CDN');
+            $form->text('路径前缀', 'COS_PATH_PREFIX');
+            $form->text('访问超时', 'COS_TIMEOUT')->beforeText('秒');
+            $form->text('连接超时', 'COS_CONNECT_TIMEOUT')->beforeText('秒');
         });
 
         app_hook('Manage', 'form', ['class' => get_called_class(), 'form' => &$form]);
