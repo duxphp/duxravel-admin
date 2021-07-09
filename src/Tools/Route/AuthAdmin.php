@@ -38,7 +38,7 @@ Route::group([
     Route::group([
         'auth_group' => '菜单内容管理'
     ], function () {
-        Route::manage(\Modules\Tools\Admin\MenuItems::class)->only(['index', 'data', 'page', 'save', 'del'])->prefix('menuItems-{menu}')->make();
+        Route::manage(\Modules\Tools\Admin\MenuItems::class)->only(['index', 'data', 'page', 'save', 'del', 'sort'])->prefix('menuItems-{menu}')->make();
     });
 
     Route::group([

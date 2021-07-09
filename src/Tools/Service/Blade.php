@@ -47,7 +47,7 @@ class Blade
             'limit' => (int)$args['limit'] ?: 10,
         ];
         $data = new \Modules\Tools\Model\ToolsMenuItems();
-        $data = $data->scoped(['menu_id' => $params['id']]);
+        $data = $data->scoped(['menu_id' => $params['id']])->defaultOrder();
 
         if ($params['parent']) {
             $data = $data->where('item_id', $params['parent'])->first()->descendants()->get()->toTree()->take($params['limit']);
