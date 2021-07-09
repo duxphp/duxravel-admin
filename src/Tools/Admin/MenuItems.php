@@ -22,7 +22,7 @@ class MenuItems extends MenuExpend
     {
         $table = new Table(new $this->model());
         $table->title('菜单管理');
-        $table->model()->scoped(['menu_id' => $this->menuId]);
+        $table->model()->scoped(['menu_id' => $this->menuId])->defaultOrder();
         $table->action()->button('添加', 'admin.tools.menuItems.page', ['menu' => $this->menuId])->icon('plus')->type('dialog');
         $table->tree('parent_id', route('admin.tools.menuItems.sortable', ['menu' => $this->menuId]));
         // 设置筛选
