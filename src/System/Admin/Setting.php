@@ -153,7 +153,7 @@ class Setting extends \Modules\System\Admin\Expend
         return $form;
     }
 
-    public function save()
+    public function save($id = 0)
     {
         $data = $this->form()->save()->toArray();
         $envPath = base_path() . DIRECTORY_SEPARATOR . '.env';
