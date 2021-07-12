@@ -15,6 +15,20 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        // 注册配置文件
+        $this->mergeConfigFrom(__DIR__ . '/../Config/admin.php', 'admin');
+
+        app('config')->set('auth.guards.admin', [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ]);
+
+        app('config')->set('auth.providers.admins', [
+            'driver' => 'eloquent',
+            'model' => Modules\System\Model\SystemUser::class,
+        ]);
+
     }
 
     /**
@@ -24,6 +38,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+
         // 注册公共路由
         $router->group(['prefix' => 'admin', 'public' => true, 'auth_has' => 'admin', 'middleware' => ['web']], function () {
             $list = \Duxravel\Core\Util\Cache::routeList('Admin');
@@ -45,7 +60,5 @@ class AdminServiceProvider extends ServiceProvider
         // 注册数据库目录
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../../database/migrations'));
 
-        // 注册配置文件
-        $this->mergeConfigFrom(__DIR__.'/../Config/admin.php','admin');
     }
 }
