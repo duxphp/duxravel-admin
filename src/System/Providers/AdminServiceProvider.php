@@ -26,7 +26,7 @@ class AdminServiceProvider extends ServiceProvider
 
         app('config')->set('auth.providers.admins', [
             'driver' => 'eloquent',
-            'model' => Modules\System\Model\SystemUser::class,
+            'model' => \Modules\System\Model\SystemUser::class,
         ]);
 
     }
