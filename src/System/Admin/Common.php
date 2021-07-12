@@ -2,7 +2,7 @@
 
 namespace Modules\System\Admin;
 
-use App\Http\Controllers\Controller;
+use Duxravel\Core\Controllers\Controller;
 
 class Common extends Controller
 {
