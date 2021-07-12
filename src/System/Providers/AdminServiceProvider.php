@@ -46,8 +46,6 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../../database/migrations'));
 
         // 注册配置文件
-        $this->publishes([
-            __DIR__.'/../Config/admin.php' => config_path('admin.php'),
-        ], 'duxravel-admin');
+        $this->mergeConfigFrom(__DIR__.'/../Config/admin.php','admin');
     }
 }
