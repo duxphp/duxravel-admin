@@ -20,7 +20,7 @@ class MenuExpend extends \Modules\System\Admin\Expend
         return parent::add();
     }
 
-    public function edit($menuId = 0, $id)
+    public function edit($menuId = 0, $id = 0)
     {
         $this->menuId = $menuId;
         return parent::edit($id);

@@ -71,7 +71,7 @@ class FormData extends \Modules\System\Admin\Expend
         return $form;
     }
 
-    public function save($id)
+    public function save($id = 0)
     {
         $data = $this->form($id)->save();
         app(\Duxravel\Core\Util\Form::class)->saveForm($this->formInfo->form_id, $data, $id);
