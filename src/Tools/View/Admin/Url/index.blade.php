@@ -38,7 +38,7 @@
             },
             callback: function (object) {
                 $('#url-tabs').parents('[modal]').trigger('close')
-                window['selectUrl']($(object).data('url'))
+                $('#url-tabs').trigger('select-url', [$(object).data('url')]);
             }
         })
         $('#quick-search').html($table)
