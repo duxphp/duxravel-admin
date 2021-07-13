@@ -1,4 +1,4 @@
-<div class="tabs" id="url-tabs">
+<div class="tabs url-tabs">
     <ul class="tabs-nav" x-data="{tab: 0}">
         @foreach($data as $key => $vo)
             <li>
@@ -34,16 +34,16 @@
                 key: 0
             },
             query: function () {
-                return $('#url-tabs').find('[data-keyword]').val()
+                return $('.url-tabs').find('[data-keyword]').val()
             },
             callback: function (object) {
-                $('#url-tabs').parents('[modal]').trigger('close')
-                $('#url-tabs').trigger('select-url', [$(object).data('url')]);
+                $('.url-tabs').parents('[modal]').trigger('close')
+                $('.url-tabs').trigger('select-url', [$(object).data('url')]);
             }
         })
         $('#quick-search').html($table)
         $table.trigger('refresh')
-        $('#url-tabs').on('click', '[data-search]', function () {
+        $('.url-tabs').on('click', '[data-search]', function () {
             $table.trigger('refresh')
         })
         window.urlTab = function (num) {
