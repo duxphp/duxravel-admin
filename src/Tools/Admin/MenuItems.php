@@ -71,9 +71,9 @@ class MenuItems extends MenuExpend
 
         $form->script(static function () {
             return <<<JS
-                $(body).on('select-url', '.url-tabs', function (url) {
+                window['selectUrl'] = function(url) {
                     $('input[name="url"]').val(url)
-                });
+                }
             JS;
         });
         return $form;
