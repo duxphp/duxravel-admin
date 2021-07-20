@@ -8,6 +8,7 @@ Route::group(['public' => true], function () {
      * 公共资源
      */
     Route::get('', ['uses' => 'Modules\System\Admin\Index@index', 'desc' => '系统首页'])->name('admin.index');
+    Route::get('menu', ['uses' => 'Modules\System\Admin\Index@menu', 'desc' => '系统菜单'])->name('admin.menu');
     Route::get('development', ['uses' => 'Modules\System\Admin\Development@index', 'desc' => '运维概况'])->name('admin.development');
     Route::get('fileManage', ['uses' => 'Modules\System\Admin\FileManage@handle', 'desc' => '文件管理器'])->name('admin.filemanage');
     Route::post('upload', ['uses' => 'Modules\System\Admin\Upload@ajax', 'desc' => '文件上传'])->name('admin.upload');
