@@ -12,6 +12,7 @@ class Index extends Common
         return redirect(route(config('admin.home')));
     }
 
+
     public function menu()
     {
         $list = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
