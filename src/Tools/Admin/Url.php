@@ -28,7 +28,7 @@ class Url extends Common
     public function data()
     {
         $query = request()->get('query');
-        $key = request()->get('key');
+        $key = request()->get('type');
 
         $data = $this->getMenuUrl();
         $menuInfo = $data[$key ?: 0];

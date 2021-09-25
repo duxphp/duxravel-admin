@@ -9,7 +9,7 @@ class Index extends Common
 
     public function index()
     {
-        return redirect(route(config('admin.home')));
+        return view('manage');
     }
 
     public function menu()
@@ -26,5 +26,11 @@ class Index extends Common
             'list' => $list,
             'active' => $menuActive
         ]);
+    }
+
+    public function side($app)
+    {
+        $side = app(\Duxravel\Core\Util\Menu::class)->getSide('admin', $app);
+        return app_success('ok', $side);
     }
 }

@@ -24,7 +24,7 @@ class Menu extends \Modules\System\Admin\Expend
         $table->column('名称', 'name');
         $column = $table->column('操作')->width('180')->align('right');
         $column->link('编辑', 'admin.tools.menu.page', ['id' => 'menu_id'])->type('dialog');
-        $column->link('删除', 'admin.tools.menu.del', ['id' => 'menu_id'])->type('ajax')->data(['type' => 'post']);
+        $column->link('删除', 'admin.tools.menu.del', ['id' => 'menu_id'])->type('ajax', ['method' => 'post']);
         return $table;
     }
 

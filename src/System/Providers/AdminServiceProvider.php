@@ -20,7 +20,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../Config/admin.php', 'admin');
 
         app('config')->set('auth.guards.admin', [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'admins',
         ]);
 

@@ -3,12 +3,13 @@
 namespace Modules\System\Model;
 
 use \Illuminate\Foundation\Auth\User;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Class SystemUser
  * @package Modules\System\Model
  */
-class SystemUser extends User
+class SystemUser extends User implements JWTSubject
 {
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
@@ -41,5 +42,21 @@ class SystemUser extends User
             $data->roles()->detach();
         });
     }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'user_id';
+    }
+
 
 }

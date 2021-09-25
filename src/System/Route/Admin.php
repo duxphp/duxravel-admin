@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('', ['uses' => 'Modules\System\Admin\Index@index', 'desc' => '系统首页'])->name('admin.index');
+
 /**
  * 用户登录
  */

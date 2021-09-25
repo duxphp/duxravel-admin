@@ -34,6 +34,7 @@ class User extends \Modules\System\Admin\Expend
     protected function form(int $id = 0): \Duxravel\Core\UI\Form
     {
         $form = $this->traitForm($id);
+
         $form->select('角色', 'role_ids', function () {
             return $this->roleModel::pluck('name', 'role_id');
         }, 'roles')->multi()->verify([

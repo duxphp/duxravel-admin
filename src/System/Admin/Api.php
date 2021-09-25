@@ -30,9 +30,9 @@ class Api extends \Modules\System\Admin\Expend
         ]);
 
         $column = $table->column('操作')->width(180);
-        $column->link('重置TOKEN', 'admin.system.api.token', ['id' => 'api_id'])->type('ajax')->data(['type' => 'post']);
+        $column->link('重置TOKEN', 'admin.system.api.token', ['id' => 'api_id'])->type('ajax', ['method' => 'post']);
         $column->link('编辑', 'admin.system.api.page', ['id' => 'api_id'])->type('dialog');
-        $column->link('删除', 'admin.system.api.del', ['id' => 'api_id'])->type('ajax')->data(['type' => 'post']);
+        $column->link('删除', 'admin.system.api.del', ['id' => 'api_id'])->type('ajax');
 
         $table->filter('描述搜索', 'name', function ($query, $value) {
             $query->where('name', 'like', '%' . $value . '%');

@@ -9,7 +9,7 @@ use \Duxravel\Core\UI\Form;
 class Setting extends \Modules\System\Admin\Expend
 {
 
-    public function handle(): string
+    public function handle()
     {
         return $this->form()->render();
     }

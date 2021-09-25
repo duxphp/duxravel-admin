@@ -25,7 +25,7 @@ class Form extends \Modules\System\Admin\Expend
         $column = $table->column('操作')->width(180);
         $column->link('设计器', 'admin.tools.form.setting', ['id' => 'form_id']);
         $column->link('编辑', 'admin.tools.form.page', ['id' => 'form_id'])->type('dialog');
-        $column->link('删除', 'admin.tools.form.del', ['id' => 'form_id'])->type('ajax')->data(['type' => 'post']);
+        $column->link('删除', 'admin.tools.form.del', ['id' => 'form_id'])->type('ajax', ['method' => 'post']);
 
         return $table;
     }
@@ -83,7 +83,7 @@ class Form extends \Modules\System\Admin\Expend
         $data = request()->input('data');
         $model = new \Duxravel\Core\Model\Form();
         $model->where('form_id', $id)->update(['data' => $data]);
-        return app_success('保存表单数据成功', [], route('admin.tools.form'));
+        return app_success('保存表单数据成功');
     }
 
 }

@@ -10,7 +10,7 @@ Route::group([
     Route::group([
         'auth_group' => '地区数据'
     ], function () {
-        Route::get('area', ['uses' => 'Modules\Tools\Admin\Area@index', 'desc' => '列表'])->name('admin.tools.area');
+        Route::manage(\Modules\Tools\Admin\Area::class)->only(['index'])->make();
         Route::get('area/add', ['uses' => 'Modules\Tools\Admin\Area@import', 'desc' => '导入'])->name('admin.tools.area.import');
         Route::post('area/store', ['uses' => 'Modules\Tools\Admin\Area@importData', 'desc' => '导入数据'])->name('admin.tools.area.importData');
         Route::post('area/del/{id?}', ['uses' => 'Modules\Tools\Admin\Area@del', 'desc' => '删除'])->name('admin.tools.area.del');
@@ -57,6 +57,7 @@ Route::group([
         'auth_tags' => '内容标签'
     ], function () {
         Route::get('tags', ['uses' => 'Modules\Tools\Admin\Tags@index', 'desc' => '列表'])->name('admin.tools.tags');
+        Route::get('tags/ajax', ['uses' => 'Modules\Tools\Admin\Tags@ajax', 'desc' => 'ajax数据'])->name('admin.tools.tags.ajax');
         Route::post('tags/del/{id?}', ['uses' => 'Modules\Tools\Admin\Tags@del', 'desc' => '删除'])->name('admin.tools.tags.del');
         Route::get('tags/empty', ['uses' => 'Modules\Tools\Admin\Tags@empty', 'desc' => '清理'])->name('admin.tools.tags.empty');
     });

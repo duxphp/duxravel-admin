@@ -28,7 +28,7 @@ class Page extends \Modules\System\Admin\Expend
         });
         $column = $table->column('操作')->width('180')->align('right');
         $column->link('编辑', 'admin.tools.page.page', ['id' => 'page_id'])->type('dialog');
-        $column->link('删除', 'admin.tools.page.del', ['id' => 'page_id'])->type('ajax')->data(['type' => 'post']);
+        $column->link('删除', 'admin.tools.page.del', ['id' => 'page_id'])->type('ajax', ['method' => 'post']);
         return $table;
     }
 

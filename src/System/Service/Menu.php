@@ -15,6 +15,19 @@ class Menu
      */
     public function getAdminMenu()
     {
+        $data = app(\Duxravel\Core\Util\Menu::class)->getAll('app');
+        foreach ($data as $key => $vo) {
+            $data[$key]['url'] = route($vo['url'], $vo['params'], false);
+        }
+        $formList = \Duxravel\Core\Model\Form::where('manage' , 0)->get();
+        foreach ($formList as $vo) {
+            $data[] = [
+                'name' => $vo['name'],
+                'url' => route('admin.tools.formData', ['form' => $vo->form_id], false),
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>'
+            ];
+        }
+
         return [
             'index' => [
                 'name' => '首页',
@@ -109,10 +122,11 @@ class Menu
                 ],
             ],
             'app' => [
-                'name' => '应用',
+                'name' => '应用中心',
                 'icon' => '<svg t="1610609240337" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10024" width="16" height="16"><path d="M174.5 463.397h295.714V184.125c0-54.766-43.763-104.093-104.093-104.093H174.5c-60.206 0-104.093 49.327-104.093 104.093v180.742c0.123 54.643 43.887 98.53 104.093 98.53z" fill="#F36A5A" p-id="10025"></path><path d="M952.852 364.744V184.125c0-54.766-43.764-104.093-104.094-104.093h-191.62c-54.767 0-104.094 43.764-104.094 104.093v284.712h295.714c60.33-5.44 104.094-49.327 104.094-104.093z" fill="#F1C40F" p-id="10026"></path><path d="M656.52 934.29h197.183c54.767 0 98.53-43.763 98.53-104.093V649.579c0-54.767-43.763-104.094-104.093-104.094H552.426v284.712c0 54.89 43.764 104.093 104.093 104.093z" fill="#45BE89" p-id="10027"></path><path d="M174.5 934.29h191.62c54.767 0 104.094-43.763 104.094-104.093V550.925H174.5c-54.766 0-104.093 43.764-104.093 104.093V835.76c0.123 49.327 43.887 98.53 104.093 98.53z" fill="#5491DE" p-id="10028"></path></svg>',
                 'url' => 'admin.system.application',
                 'order' => 200,
+                'data' => $data
             ],
         ];
     }

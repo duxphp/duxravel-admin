@@ -33,7 +33,7 @@ class MenuItems extends MenuExpend
         $table->column('菜单名', 'name')->drag();
         $column = $table->column('操作')->width('140');
         $column->link('编辑', 'admin.tools.menuItems.page', ['menu' => $this->menuId, 'id' => 'item_id'])->type('dialog');
-        $column->link('删除', 'admin.tools.menuItems.del', ['menu' => $this->menuId, 'id' => 'item_id'])->type('ajax')->data(['type' => 'post']);
+        $column->link('删除', 'admin.tools.menuItems.del', ['menu' => $this->menuId, 'id' => 'item_id'])->type('ajax', ['method' => 'post']);
         return $table;
     }
 

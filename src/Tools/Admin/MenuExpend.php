@@ -14,6 +14,12 @@ class MenuExpend extends \Modules\System\Admin\Expend
         return parent::index();
     }
 
+    public function ajax($menuId = 0)
+    {
+        $this->menuId = $menuId;
+        return parent::ajax();
+    }
+
     public function add($menuId = 0)
     {
         $this->menuId = $menuId;

@@ -80,14 +80,14 @@ class Menu
                 ],
             ],
             'form' => [
-                'name' => '表单',
+                'name' => '表单生成',
                 'icon' => $icon,
                 'hidden' => true,
                 'order' => 1000,
                 'url' => 'admin.tools.form'
             ],
             'form_data' => [
-                'name' => $formInfo ? $formInfo->menu : '表单',
+                'name' => $formInfo->name,
                 'icon' => $icon,
                 'hidden' => true,
                 'order' => 1000,
@@ -105,6 +105,7 @@ class Menu
                 'desc' => '多功能自定义表单功能',
                 'type' => 'tools',
                 'url' => 'admin.tools.form',
+                'color' => '#ff5500',
                 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>'
             ]
         ];
