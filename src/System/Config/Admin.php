@@ -6,3 +6,4 @@ return [
         'admin.development'
     ),
 ];
+

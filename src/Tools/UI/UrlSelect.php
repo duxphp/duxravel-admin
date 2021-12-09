@@ -5,6 +5,7 @@ namespace Modules\Tools\UI;
 use Duxravel\Core\UI\Form\Component;
 use Duxravel\Core\UI\Form\Element;
 use Duxravel\Core\UI\Form\Text;
+use Modules\System\Events\MenuUrl;
 
 /**
  * Class UrlSelect
@@ -94,7 +95,7 @@ class UrlSelect extends Element implements Component
      */
     private function getMenuUrl(): array
     {
-        $list = app_hook('type', 'getMenuUrl');
+        $list = array_key_last(event(new MenuUrl));
         $data = [];
         foreach ((array)$list as $value) {
             $data = array_merge_recursive((array)$data, (array)$value);

@@ -1,8 +1,8 @@
 <template>
-  <n-layout class="bg-gray-100 h-screen" :native-scrollbar="false">
+  <app-layout>
     <div class="p-5">
       <div class="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-2 gap-5 whitespace-nowrap">
-        <div class=" flex shadow bg-white rounded items-center">
+        <div class=" flex shadow bg-white dark:bg-blackgray-4 rounded items-center">
           <div
             class="flex-none rounded-l bg-blue-600 text-white text-xl flex items-center justify-center w-14 h-16">
             PV
@@ -37,7 +37,7 @@
             <div class="text-gray-500 text-xs">7天占比</div>
           </div>
         </div>
-        <div class=" flex shadow bg-white rounded items-center">
+        <div class=" flex shadow bg-white  dark:bg-blackgray-4 rounded items-center">
           <div
             class="flex-none rounded-l bg-red-600 text-white text-xl flex items-center justify-center w-14 h-16">
             RT
@@ -72,7 +72,7 @@
             <div class="text-gray-500 text-xs">7天占比</div>
           </div>
         </div>
-        <div class=" flex shadow bg-white rounded items-center">
+        <div class=" flex shadow bg-white  dark:bg-blackgray-4 rounded items-center">
           <div
             class="flex-none rounded-l bg-yellow-600 text-white text-xl flex items-center justify-center w-14 h-16">
             FN
@@ -107,7 +107,7 @@
             <div class="text-gray-500 text-xs">7天占比</div>
           </div>
         </div>
-        <div class=" flex shadow bg-white rounded items-center">
+        <div class=" flex shadow bg-white  dark:bg-blackgray-4 rounded items-center">
           <div
             class="flex-none rounded-l bg-green-600 text-white text-xl flex items-center justify-center w-14 h-16">
             LN
@@ -144,83 +144,98 @@
         </div>
       </div>
       <div class="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-2 gap-5 whitespace-nowrap mt-5">
-        <div class=" shadow bg-white rounded p-5">
+        <div class=" shadow bg-white dark:bg-blackgray-4 rounded p-5">
           {!! $apiNumChart !!}
         </div>
-        <div class=" shadow bg-white rounded p-5">
+        <div class=" shadow bg-white dark:bg-blackgray-4 rounded p-5">
 
           {!! $apiTimeChart !!}
         </div>
-        <div class=" shadow bg-white rounded p-5">
+        <div class=" shadow bg-white dark:bg-blackgray-4 rounded p-5">
           {!! $fileNumChart !!}
         </div>
-        <div class=" shadow bg-white rounded p-5">
+        <div class=" shadow bg-white dark:bg-blackgray-4 rounded p-5">
           {!! $logNumChart !!}
         </div>
       </div>
 
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-5">
-        <div class="bg-white rounded shadow p-5">
+        <div class="bg-white dark:bg-blackgray-4 rounded shadow p-5">
           <div class="flex items-center relative">
             <span class="text-base flex-grow">访问排名</span>
             <div class="flex-none select-none">
-              <n-dropdown trigger="hover" @select="handleSelect($event, 'views')" :options="optionDay('views')">
-                <n-button>最近 @{{filter.views.day}} 天</n-button>
-              </n-dropdown>
+              <a-dropdown>
+                <a-button>最近 @{{filter.views.day}} 天</a-button>
+                <template #content>
+                  <a-doption v-for="item in days" @click="handleSelect(item.key, 'views')">@{{item.label}}</a-doption>
+                </template>
+              </a-dropdown>
             </div>
           </div>
           <app-table class="mt-4"
-                     url="{{ route("admin.system.visitorApi.ajax", ['limit' => 10, '_time' => random_int(1, 10000)]) }}"
+                     url="{{ route("admin.system.visitorApi.ajax", ['_time' => random_int(1, 10000)]) }}"
                      :columns='columnsTotal'
                      :filter='filter.views'
+                     :limit="10"
+                     :simple="true"
                      :n-params='table'></app-table>
         </div>
-        <div class="bg-white rounded shadow p-5">
+        <div class="bg-white dark:bg-blackgray-4 rounded shadow p-5">
           <div class="flex items-center relative">
             <span class="text-base flex-grow">响应排名</span>
             <div class="flex-none select-none">
-              <n-dropdown trigger="hover" @select="handleSelect($event, 'response')" :options="optionDay('response')">
-                <n-button>最近 @{{filter.response.day}} 天</n-button>
-              </n-dropdown>
+              <a-dropdown>
+                <a-button>最近 @{{filter.response.day}} 天</a-button>
+                <template #content>
+                  <a-doption v-for="item in days" @click="handleSelect(item.key, 'response')">@{{item.label}}</a-doption>
+                </template>
+              </a-dropdown>
             </div>
           </div>
           <app-table class="mt-4"
-                     url="{{ route("admin.system.visitorApi.ajax", ['limit' => 10, '_time' => random_int(1, 10000)]) }}"
+                     url="{{ route("admin.system.visitorApi.ajax", ['_time' => random_int(1, 10000)]) }}"
                      :columns='columnsResponse'
                      :filter='filter.response'
+                     :limit="10"
+                     :simple="true"
                      :n-params='table'></app-table>
         </div>
       </div>
 
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-5">
-        <div class="bg-white rounded shadow p-5">
+        <div class="bg-white dark:bg-blackgray-4 rounded shadow p-5">
           <div class="flex items-center relative">
             <span class="text-base flex-grow">操作日志</span>
             <div class="flex-none select-none">
-              <n-dropdown trigger="hover" @select="handleSelect($event, 'log')" :options="optionDay('log')">
-                <n-button>最近 @{{filter.log.day}} 天</n-button>
-              </n-dropdown>
+              <a-dropdown>
+                <a-button>最近 @{{filter.log.day}} 天</a-button>
+                <template #content>
+                  <a-doption v-for="item in days" @click="handleSelect(item.key, 'log')">@{{item.label}}</a-doption>
+                </template>
+              </a-dropdown>
             </div>
           </div>
           <app-table class="mt-4"
-                     url="{{ route("admin.system.operate.ajax", ['limit' => 9, '_time' => random_int(1, 10000)]) }}"
+                     url="{{ route("admin.system.operate.ajax", [ '_time' => random_int(1, 10000)]) }}"
                      :columns='columnsLog'
                      :filter='filter.log'
+                     :limit="11"
+                     :simple="true"
                      :n-params='table'></app-table>
         </div>
-        <div class="bg-white shadow overflow-hidden ">
+        <div class="bg-white dark:bg-blackgray-4 shadow overflow-hidden ">
           <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-base text-gray-600">
+            <h3 class="">
               环境信息
             </h3>
-            <p class="mt-1 text-sm text-gray-500">
+            <p class="mt-1 text-sm">
               系统运行各参数与环境数据
             </p>
           </div>
-          <div class="border-t border-gray-200">
+          <div class="border-t border-gray-200 dark:border-gray-600">
             <dl>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+              <div class="bg-gray-100 dark:bg-blackgray-3 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-red-600 p-2 rounded text-white">
                     <svg t="1607399448502" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -232,12 +247,12 @@
                   </div>
                   <div class="ml-2">Laravel 版本</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{ app()->version() }}
                 </dd>
               </div>
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-gray-700 p-2 rounded text-white">
                     <svg t="1607399651954" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -249,12 +264,12 @@
                   </div>
                   <div class="ml-2">操作系统</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{PHP_OS_FAMILY}} Version {{php_uname('r')}}
                 </dd>
               </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+              <div class="bg-gray-100 dark:bg-blackgray-3 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-blue-600 p-2 rounded text-white">
                     <svg t="1607399504569" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -266,12 +281,12 @@
                   </div>
                   <div class="ml-2">PHP版本</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{php_sapi_name()}} {{PHP_VERSION}}
                 </dd>
               </div>
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-yellow-600 p-2 rounded text-white">
                     <svg t="1607399567811" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -283,12 +298,12 @@
                   </div>
                   <div class="ml-2">Mysql版本</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{DB::select('SHOW VARIABLES LIKE "version"')[0]->Value}}
                 </dd>
               </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+              <div class="bg-gray-100 dark:bg-blackgray-3 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-red-600 p-2 rounded text-white">
                     <svg t="1623898130568" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2623" width="200"
@@ -303,12 +318,12 @@
                   </div>
                   <div class="ml-2">Redis版本</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{\Illuminate\Support\Facades\Redis::info()['redis_version']}}
                 </dd>
               </div>
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-green-600 p-2 rounded text-white">
                     <svg t="1623898416456" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3437" width="200"
@@ -320,12 +335,12 @@
                   </div>
                   <div class="ml-2">服务器IP</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{$_SERVER['SERVER_ADDR']}}
                 </dd>
               </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+              <div class="bg-gray-100 dark:bg-blackgray-3 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-purple-600 p-2 rounded text-white">
                     <svg t="1607661922912" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -340,12 +355,12 @@
                   </div>
                   <div class="ml-2">Web服务端</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{$_SERVER['SERVER_SOFTWARE']}}
                 </dd>
               </div>
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-green-600 p-2 rounded text-white">
                     <svg t="1610011408252" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -357,12 +372,12 @@
                   </div>
                   <div class="ml-2">上传限制</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{ get_cfg_var ("upload_max_filesize") ? get_cfg_var ("upload_max_filesize") : "不允许" }}
                 </dd>
               </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+              <div class="bg-gray-100 dark:bg-blackgray-3 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-red-600 p-2 rounded text-white">
                     <svg t="1610011470374" class="w-5 h-5 fill-current" viewBox="0 0 1029 1024"
                          version="1.1"
@@ -374,13 +389,13 @@
                   </div>
                   <div class="ml-2">脚本超时</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{ get_cfg_var("max_execution_time") }}秒
                 </dd>
               </div>
 
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-                <dt class="text-sm text-gray-600 flex items-center flex-grow lg:flex-none">
+                <dt class="text-sm flex items-center flex-grow lg:flex-none">
                   <div class="bg-gray-700 p-2 rounded text-white">
                     <svg t="1610011525042" class="w-5 h-5 fill-current" viewBox="0 0 1024 1024"
                          version="1.1"
@@ -392,7 +407,7 @@
                   </div>
                   <div class="ml-2">剩余空间</div>
                 </dt>
-                <dd class="lg:mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
                   {{ round(disk_free_space(base_path()) /1024/1024/1024, 2) }} GB
                 </dd>
               </div>
@@ -402,13 +417,27 @@
 
       </div>
     </div>
-  </n-layout>
-
+  </app-layout>
 </template>
 <script>
   export default {
     data: function () {
+
       return {
+        days: [
+          {
+            label: '最近3天',
+            key: 3
+          },
+          {
+            label: '最近7天',
+            key: 7
+          },
+          {
+            label: '最近30天',
+            key: 30
+          },
+        ],
         filter: {
           views: {
             day: 3
@@ -424,8 +453,8 @@
         columnsTotal: [
           {
             title: '接口',
-            key: '',
-            'render:rowData, rowIndex': [
+            dataIndex: 'name',
+            'render:rowData': [
               {
                 nodeName: 'div',
                 class: 'flex gap-2 items-center',
@@ -434,29 +463,29 @@
                     nodeName: 'n-tag',
                     size: 'small',
                     type: 'info',
-                    child: '@{{rowData.method}}'
+                    child: '@{{rowData.record.method}}'
                   },
                   {
                     nodeName: 'div',
-                    child: '@{{rowData.desc}}'
+                    child: '@{{rowData.record.desc}}'
                   },
                 ]
               },
               {
                 nodeName: 'div',
                 class: 'text-gray-400',
-                child: '@{{rowData.name}}'
+                child: '@{{rowData.record.name}}'
               },
             ]
           },
           {
             title: '访问量',
-            key: 'pv',
+            dataIndex: 'pv',
             sorter: true
           },
           {
             title: '访客',
-            key: 'uv',
+            dataIndex: 'uv',
             align: 'right',
             sorter: true
           }
@@ -464,7 +493,7 @@
         columnsResponse: [
           {
             title: '响应',
-            key: '',
+            dataIndex: 'name',
             'render:rowData, rowIndex': [
               {
                 nodeName: 'div',
@@ -474,29 +503,29 @@
                     nodeName: 'n-tag',
                     size: 'small',
                     type: 'info',
-                    child: '@{{rowData.method}}'
+                    child: '@{{rowData.record.method}}'
                   },
                   {
                     nodeName: 'div',
-                    child: '@{{rowData.desc}}'
+                    child: '@{{rowData.record.desc}}'
                   },
                 ]
               },
               {
                 nodeName: 'div',
                 class: 'text-gray-400',
-                child: '@{{rowData.name}}'
+                child: '@{{rowData.record.name}}'
               },
             ]
           },
           {
             title: '最大响应',
-            key: 'max',
+            dataIndex: 'max',
             sorter: true
           },
           {
             title: '最小响应',
-            key: 'min',
+            dataIndex: 'min',
             align: 'right',
             sorter: true
           }
@@ -504,40 +533,45 @@
         columnsLog: [
           {
             title: '接口',
-            key: '',
-            'render:rowData, rowIndex': [
+            dataIndex: '',
+            'render:rowData': [
               {
                 nodeName: 'div',
-                child: '@{{rowData.desc}}'
+                child: '@{{rowData.record.desc}}'
               },
               {
                 nodeName: 'div',
                 class: 'text-gray-400',
-                child: '@{{rowData.name}}'
+                child: '@{{rowData.record.name}}'
               },
             ]
           },
           {
             title: '类型',
-            key: 'method',
+            dataIndex: 'method',
           },
           {
             title: '时间',
             align: 'right',
-            'render:rowData, rowIndex': [
+            'render:rowData': [
               {
                 nodeName: 'div',
-                child: '@{{rowData.create_time}}'
+                child: '@{{rowData.record.create_time}}'
               },
               {
                 nodeName: 'div',
                 class: 'text-gray-400',
-                child: '@{{rowData.time}}'
+                child: '@{{rowData.record.time}}'
               },
             ]
           }
         ]
       }
+    },
+    mounted() {
+
+
+
     },
     methods: {
       optionDay: function (name) {

@@ -4,13 +4,14 @@ namespace Modules\Tools\Admin;
 
 
 use Modules\System\Admin\Common;
+use Modules\System\Events\MenuUrl;
 
 class Url extends Common
 {
 
     private function getMenuUrl(): array
     {
-        $list = app_hook('type', 'getMenuUrl');
+        $list = array_key_last(event(new MenuUrl));
         $data = [];
         foreach ((array)$list as $value) {
             $data = array_merge_recursive((array)$data, (array)$value);

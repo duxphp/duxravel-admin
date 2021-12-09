@@ -17,3 +17,8 @@ Route::get('login/logout', 'Modules\System\Admin\Login@logout')->name('admin.log
  */
 Route::get('register', 'Modules\System\Admin\Register@index')->middleware('auth.manage.register')->name('admin.register');
 Route::post('register', 'Modules\System\Admin\Register@submit')->middleware('auth.manage.register')->name('admin.register.submit');
+
+/**
+ * 其他公用
+ */
+Route::get('map/weather', ['uses' => 'Modules\System\Admin\Map@weather', 'desc' => '天气服务'])->name('admin.map.weather');

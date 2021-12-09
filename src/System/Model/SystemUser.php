@@ -4,6 +4,7 @@ namespace Modules\System\Model;
 
 use \Illuminate\Foundation\Auth\User;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Duxravel\Core\Traits\RoleHas;
 
 /**
  * Class SystemUser
@@ -11,6 +12,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class SystemUser extends User implements JWTSubject
 {
+    use RoleHas;
+
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
 
@@ -22,10 +25,6 @@ class SystemUser extends User implements JWTSubject
 
     protected $fillable = ['username', 'password'];
 
-    public function roles()
-    {
-        return $this->belongsToMany(\Modules\System\Model\SystemRole::class, 'system_user_role', 'user_id', 'role_id');
-    }
 
     public function setPasswordAttribute($value)
     {

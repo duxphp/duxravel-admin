@@ -42,6 +42,16 @@
         "src/System/Route/AuthAdmin.php",
         "src/Tools/Route/AuthAdmin.php",
         "src/Tools/Route/Web.php"
+      ],
+      "menu": [
+        "src/System/Menu/Admin.php",
+        "src/Tools/Menu/Admin.php"
+      ],
+      "event": [
+        "Modules\\System\\Events\\MenuUrl"
+      ],
+      "listener":[
+        "Modules\\System\\Listeners\\InstallSeed"
       ]
     }
   },

@@ -2,9 +2,11 @@
 
 namespace Modules\System\Providers;
 
+use Duxravel\Core\Util\Permission;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Gate;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,7 @@ class AdminServiceProvider extends ServiceProvider
     {
 
         // 注册配置文件
-        $this->mergeConfigFrom(__DIR__ . '/../Config/admin.php', 'admin');
+        $this->mergeConfigFrom(__DIR__ . '/../Config/Admin.php', 'admin');
 
         app('config')->set('auth.guards.admin', [
             'driver' => 'jwt',

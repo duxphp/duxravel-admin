@@ -2,6 +2,8 @@
 
 namespace Modules\System\Admin;
 
+use Duxravel\Core\Events\ManageForm;
+use Duxravel\Core\Events\ManageTable;
 use Illuminate\Support\Collection;
 use \Duxravel\Core\UI\Widget;
 use \Duxravel\Core\UI\Form;
@@ -30,6 +32,8 @@ class Setting extends \Modules\System\Admin\Expend
         $tabs->column('信息配置', function (Form $form) {
             $form->text('系统名称', 'APP_NAME');
             $form->text('系统域名', 'APP_URL');
+            $form->text('系统描述', 'APP_DESC');
+            $form->text('联系信息', 'APP_CONTACT');
         });
 
         $tabs->column('主题配置', function (Form $form) {
@@ -148,7 +152,7 @@ class Setting extends \Modules\System\Admin\Expend
             $form->text('连接超时', 'COS_CONNECT_TIMEOUT')->beforeText('秒');
         });
 
-        app_hook('Manage', 'form', ['class' => get_called_class(), 'form' => &$form]);
+        event(new ManageForm(get_called_class(), $form));
 
         return $form;
     }

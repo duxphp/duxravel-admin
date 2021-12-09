@@ -14,7 +14,7 @@ Route::group(['public' => true], function () {
     Route::get('fileManage', ['uses' => 'Modules\System\Admin\FileManage@handle', 'desc' => '文件管理器'])->name('admin.filemanage');
     Route::post('upload', ['uses' => 'Modules\System\Admin\Upload@ajax', 'desc' => '文件上传'])->name('admin.upload');
     Route::post('uploadRemote', ['uses' => 'Modules\System\Admin\Upload@remote', 'desc' => '远程保存'])->name('admin.uploadRemote');
-    Route::get('search', ['uses' => 'Modules\System\Admin\Search@index', 'desc' => '全局搜索'])->name('admin.search');
+    Route::get('map/ip', ['uses' => 'Modules\System\Admin\Map@weather', 'desc' => 'ip解析'])->name('admin.map.ip');
     /**
      * 系统统计
      */
