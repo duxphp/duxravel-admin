@@ -16,6 +16,7 @@ class Url extends Common
         foreach ((array)$list as $value) {
             $data = array_merge_recursive((array)$data, (array)$value);
         }
+        $data = array_filter($data);
         return $data;
     }
 
@@ -32,6 +33,10 @@ class Url extends Common
         $key = request()->get('type');
 
         $data = $this->getMenuUrl();
+
+
+        dd($data);
+
         $menuInfo = $data[$key ?: 0];
         $data = new $menuInfo['model']();
 

@@ -49,6 +49,7 @@ class UrlSelect extends Element implements Component
                 'key' => $key
             ];
         }
+        $tab = json_encode($tab);
 
         $field = $this->getModelField();
 
@@ -61,10 +62,25 @@ class UrlSelect extends Element implements Component
                 [
                     'nodeName' => 'div',
                     'child' => '选择',
-                    'class' => 'cursor-pointer',
-                    'vOn:Click' => '() => {init.open = true}'
+                    'vOn:click' => <<<JS
+                      window.appDialogTable({
+                        column: [
+                          {
+                            name: '#',
+                            key: 'id'
+                          },
+                          {
+                            name: '名称',
+                            key: 'title'
+                          },
+                        ],
+                        type: $tab,
+                        url: '{$this->url}'
+                      })
+                    JS
+
                 ],
-                [
+                /*[
                     'nodeName' => 'dialog-table',
                     'title' => '链接选择',
                     'column' => [],
@@ -84,7 +100,7 @@ class UrlSelect extends Element implements Component
                     'type' => $tab,
                     'vOn:update:show' => 'value => init.open = value',
                     'vOn:confirm' => "item => $field = item.url"
-                ]
+                ]*/
             ]
         ])->getRender();
 
