@@ -50,7 +50,6 @@ class UrlSelect extends Element implements Component
             ];
         }
         $tab = json_encode($tab);
-
         $field = $this->getModelField();
 
         return $this->object->afterText([
@@ -64,6 +63,7 @@ class UrlSelect extends Element implements Component
                     'child' => '选择',
                     'vOn:click' => <<<JS
                       window.appDialogTable({
+                        multiple: false,
                         column: [
                           {
                             name: '#',
@@ -75,32 +75,13 @@ class UrlSelect extends Element implements Component
                           },
                         ],
                         type: $tab,
-                        url: '{$this->url}'
+                        url: '{$this->url}',
+                        callback: (item) => {
+                          $field = item.url
+                        }
                       })
                     JS
-
                 ],
-                /*[
-                    'nodeName' => 'dialog-table',
-                    'title' => '链接选择',
-                    'column' => [],
-                    'url' => $this->url,
-                    'vIf' => 'init.open === true',
-                    'multiple' => false,
-                    'column' => [
-                        [
-                            'name' => '#',
-                            'key' => 'id'
-                        ],
-                        [
-                            'name' => '名称',
-                            'key' => 'title'
-                        ],
-                    ],
-                    'type' => $tab,
-                    'vOn:update:show' => 'value => init.open = value',
-                    'vOn:confirm' => "item => $field = item.url"
-                ]*/
             ]
         ])->getRender();
 
@@ -109,14 +90,14 @@ class UrlSelect extends Element implements Component
     /**
      * @return array
      */
-    private function getMenuUrl(): array
+    public static function getMenuUrl(): array
     {
-        $list = array_key_last(event(new MenuUrl));
+        $list = event(new MenuUrl);
         $data = [];
         foreach ((array)$list as $value) {
             $data = array_merge_recursive((array)$data, (array)$value);
         }
-        return $data;
+        return array_filter($data);
     }
 
 }

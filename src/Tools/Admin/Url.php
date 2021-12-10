@@ -5,37 +5,17 @@ namespace Modules\Tools\Admin;
 
 use Modules\System\Admin\Common;
 use Modules\System\Events\MenuUrl;
+use Modules\Tools\UI\UrlSelect;
 
 class Url extends Common
 {
-
-    private function getMenuUrl(): array
-    {
-        $list = array_key_last(event(new MenuUrl));
-        $data = [];
-        foreach ((array)$list as $value) {
-            $data = array_merge_recursive((array)$data, (array)$value);
-        }
-        $data = array_filter($data);
-        return $data;
-    }
-
-    public function index()
-    {
-
-        $this->assign('data', $this->getMenuUrl());
-        return $this->dialogView('vendor.duxphp.duxravel-admin.src.Tools.View.Admin.Url.index');
-    }
 
     public function data()
     {
         $query = request()->get('query');
         $key = request()->get('type');
 
-        $data = $this->getMenuUrl();
-
-
-        dd($data);
+        $data = UrlSelect::getMenuUrl();
 
         $menuInfo = $data[$key ?: 0];
         $data = new $menuInfo['model']();
@@ -69,7 +49,7 @@ class Url extends Common
 
         return app_success('ok', [
             'data' => $dataArray,
-            'total' =>$data['total'],
+            'total' => $data['total'],
             'page' => $totalPage
         ]);
 

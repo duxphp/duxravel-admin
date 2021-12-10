@@ -44,7 +44,7 @@ Route::group([
     Route::group([
         'auth_group' => '链接管理'
     ], function () {
-        Route::manage(\Modules\Tools\Admin\Url::class)->only(['index', 'data'])->make();
+        Route::manage(\Modules\Tools\Admin\Url::class)->only(['data'])->make();
     });
 
     Route::group([
