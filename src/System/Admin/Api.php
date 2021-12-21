@@ -29,7 +29,7 @@ class Api extends \Modules\System\Admin\Expend
             0 => 'red'
         ]);
 
-        $column = $table->column('操作')->width(180);
+        $column = $table->column('操作')->width(250);
         $column->link('重置TOKEN', 'admin.system.api.token', ['id' => 'api_id'])->type('ajax', ['method' => 'post']);
         $column->link('编辑', 'admin.system.api.page', ['id' => 'api_id'])->type('dialog');
         $column->link('删除', 'admin.system.api.del', ['id' => 'api_id'])->type('ajax');
