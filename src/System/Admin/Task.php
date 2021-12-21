@@ -13,7 +13,7 @@ class Task extends \Modules\System\Admin\Expend
     {
         $class = config('queue.default');
         if ($class <> 'redis' && $class <> 'database') {
-            app_error('队列类型不支持');
+            app_error('仅支持 Redis 与数据库队列');
         }
         $type = request()->get('type');
         $statsDown = 0;
