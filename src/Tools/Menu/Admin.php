@@ -9,25 +9,7 @@ Menu::add('tools', [
     'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>',
     'order' => 140,
 ], function () {
-    Menu::group([
-        'name' => '扩展工具',
-        'order' => 0,
-    ], function () {
-        Menu::link('菜单管理', 'admin.tools.menu');
-        Menu::link('自定义页面', 'admin.tools.page');
-        Menu::link('内容标签', 'admin.tools.tags');
-        Menu::link('模板标记', 'admin.tools.mark');
-    });
 
-    Menu::group([
-        'name' => '菜单管理',
-        'order' => 1,
-    ], function () {
-        $model = \Modules\Tools\Model\ToolsMenu::get();
-        $menuList = $model->map(function ($item) {
-            Menu::link($item['name'], 'admin.tools.menuItems', ['menu' => $item['menu_id']]);
-        });
-    });
     Menu::group([
         'name' => '地区',
         'order' => 200,

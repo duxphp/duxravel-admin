@@ -24,7 +24,5 @@ class ToolsServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        \Duxravel\Core\Util\Blade::make('marker', \Modules\Tools\Service\Blade::class, 'mark');
-        \Duxravel\Core\Util\Blade::loopMake('menu', \Modules\Tools\Service\Blade::class, 'menu');
     }
 }
