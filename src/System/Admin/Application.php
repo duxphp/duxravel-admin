@@ -7,10 +7,14 @@ class Application extends \Modules\System\Admin\Common
 
     public function index()
     {
-        $data = app(\Duxravel\Core\Util\Menu::class)->getAll('app');
+        $list = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
+        $data = app(\Duxravel\Core\Util\Menu::class)->getApps();
+
+
         $typeArr = ['business', 'market', 'tools'];
         $typeData = [];
         foreach ($data as $vo) {
+            if ($vo['name'] == '应用中心') continue;
             if(in_array($vo['type'], $typeArr)) {
                 $name = $vo['type'];
             }else {
@@ -19,6 +23,7 @@ class Application extends \Modules\System\Admin\Common
             $typeData[$name][] = $vo;
         }
 
+
         $typeList = [
             'business' => [
                 'name' => '业务应用',
@@ -26,14 +31,8 @@ class Application extends \Modules\System\Admin\Common
                 'color' => 'blue',
                 'data' => $typeData['business'],
             ],
-            'market' => [
-                'name' => '营销应用',
-                'desc' => '系统营销销售模块',
-                'color' => 'red',
-                'data' => $typeData['market'],
-            ],
             'tools' => [
-                'name' => '辅助工具',
+                'name' => '工具应用',
                 'desc' => '系统常用辅助工具',
                 'color' => 'green',
                 'data' => $typeData['tools'],
@@ -46,6 +45,7 @@ class Application extends \Modules\System\Admin\Common
             ],
         ];
         $this->assign('typeList', $typeList);
+
 
         $formList = \Duxravel\Core\Model\Form::where('manage' , 0)->get();
         $this->assign('formList', $formList);
