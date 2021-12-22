@@ -60,7 +60,7 @@ class AdminServiceProvider extends ServiceProvider
         });
 
         Route::get('/', function () {
-            return Route::redirect('/admin');
+            return redirect(\route('admin.index'));
         })->middleware('web')->name('admin.web');
 
         // 注册数据库目录
