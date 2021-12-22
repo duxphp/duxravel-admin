@@ -59,6 +59,10 @@ class AdminServiceProvider extends ServiceProvider
             }
         });
 
+        Route::get('/', function () {
+            return Route::redirect('/admin');
+        })->middleware('web')->name('admin.web');
+
         // 注册数据库目录
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../../../database/migrations'));
 
