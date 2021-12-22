@@ -36,14 +36,6 @@ class Setting extends \Modules\System\Admin\Expend
             $form->text('联系信息', 'APP_CONTACT');
         });
 
-        $tabs->column('主题配置', function (Form $form) {
-            $form->text('主题标题', 'THEME_TITLE');
-            $form->text('主题关键词', 'THEME_KEYWORD');
-            $form->text('主题描述', 'THEME_DESCRIPTION');
-            $form->text('pc端主题', 'THEME_DEFAULT');
-            $form->text('移动端主题', 'THEME_MOBILE');
-        });
-
         $tabs->column('安全配置', function (Form $form) {
             $form->radio('调试模式', 'APP_DEBUG', [
                 true => '开启',
