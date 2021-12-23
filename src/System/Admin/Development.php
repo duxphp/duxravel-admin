@@ -64,10 +64,10 @@ class Development extends Common
 
         // 文件上传
         $fileNumData = app(\Duxravel\Core\Model\File::class)
-            ->select(DB::raw('COUNT(*) as value, FROM_UNIXTIME(create_time,"%Y-%m-%d")  as label'))
-            ->where('create_time', '>=', strtotime(date('Y-m-d', $startTime)))
+            ->select(DB::raw('COUNT(*) as value, DATE_FORMAT(created_at,"%Y-%m-%d")  as label'))
+            ->where('created_at', '>=', date('Y-m-d', $startTime))
             //->where('has_type', 'admin')
-            ->groupBy(DB::raw('FROM_UNIXTIME(create_time,"%Y-%m-%d")'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at,"%Y-%m-%d")'))
             ->get();
         $this->data('fileNum', $fileNumData);
 
@@ -82,10 +82,10 @@ class Development extends Common
 
         // 操作日志
         $operateData = app(\Duxravel\Core\Model\VisitorOperate::class)
-            ->select(DB::raw('COUNT(*) as value, FROM_UNIXTIME(create_time,"%Y-%m-%d")  as label'))
-            ->where('create_time', '>=', strtotime(date('Y-m-d', $startTime)))
+            ->select(DB::raw('COUNT(*) as value, DATE_FORMAT(created_at,"%Y-%m-%d")  as label'))
+            ->where('created_at', '>=', date('Y-m-d', $startTime))
             ->where('has_type', 'admin')
-            ->groupBy(DB::raw('FROM_UNIXTIME(create_time,"%Y-%m-%d")'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at,"%Y-%m-%d")'))
             ->get();
         $this->data('logNum', $operateData);
 

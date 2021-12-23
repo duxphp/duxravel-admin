@@ -14,11 +14,6 @@ class SystemUser extends User implements JWTSubject
 {
     use RoleHas;
 
-    const CREATED_AT = 'create_time';
-    const UPDATED_AT = 'update_time';
-
-    protected $dateFormat = 'U';
-
     protected $table = 'system_user';
 
     protected $primaryKey = 'user_id';

@@ -27,10 +27,10 @@ class VisitorApi extends \Modules\System\Admin\Expend
 
 
         $table->filter('开始日期', 'start', function ($query, $value) {
-            $query->where('create_time', '>=', strtotime($value));
+            $query->where('created_at', '>=', $value);
         })->date();
         $table->filter('结束日期', 'stop', function ($query, $value) {
-            $query->where('update_time', '<=', strtotime($value));
+            $query->where('updated_at', '<=', $value);
         })->date();
 
         $table->map([

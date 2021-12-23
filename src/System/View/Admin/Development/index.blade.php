@@ -556,7 +556,7 @@
             'render:rowData': [
               {
                 nodeName: 'div',
-                child: '@{{rowData.record.create_time}}'
+                child: '@{{rowData.record.created_at}}'
               },
               {
                 nodeName: 'div',
