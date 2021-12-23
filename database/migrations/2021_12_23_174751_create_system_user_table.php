@@ -21,8 +21,7 @@ class CreateSystemUserTable extends Migration
             $table->rememberToken()->default('')->comment('随机码');
             $table->string('avatar', 250)->nullable()->default('')->comment('头像');
             $table->boolean('status')->default(1)->index('status')->comment('状态');
-            $table->integer('create_time');
-            $table->integer('update_time');
+            $table->timestamps();
         });
     }
 
