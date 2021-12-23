@@ -1,11 +1,7 @@
 <template>
-  <div class="flex flex-col h-screen">
-    <widget-header title="表单设计" back="true" class="flex-none">
-      <n-button type="primary" @click="onSubmit" :loading="saveing">保存</n-button>
-    </widget-header>
-
-    <div class="flex flex-grow h-10">
-      <n-layout class="flex-none w-56  bg-gray-100 " :native-scrollbar="false">
+  <app-layout :form="true" :formLoading="saveing" :submit="onSubmit">
+    <div class="h-full flex flex-grow h-10">
+      <div class="flex-none w-56  bg-gray-100 ">
         <ul class="app-package flex flex-col gap-4 p-4">
           <li class="cursor-pointer bg-white shadow hover:shadow-md rounded"
               v-for="(item, index) in formPackage" @click="addFormPackage(index, $event)">
@@ -17,105 +13,79 @@
             </div>
           </li>
         </ul>
-      </n-layout>
+      </div>
 
-      <n-layout class="bg-gray-100 flex-grow" :native-scrollbar="false">
+      <div class="bg-gray-100 flex-grow">
 
-          <div class="flex justify-center m-4 items-center p-6 bg-white shadow hover:shadow-md rounded" v-if="!formData.length">
-            <div class="text-base text-gray-500 flex flex-col justify-center items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
-                   viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-              </svg>
-              <div class="mt-4">请点击左边工具添加元素</div>
-            </div>
+        <div class="flex justify-center m-4 items-center p-6 bg-white shadow hover:shadow-md rounded" v-if="!formData.length">
+          <div class="text-base text-gray-500 flex flex-col justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+            <div class="mt-4">请点击左边工具添加元素</div>
           </div>
+        </div>
 
-          <ul v-if="formData.length" class="p-4 pl-2">
-            <draggable v-model="formData" @start="drag=true" @end="drag=false" class="flex flex-col  gap-4">
-              <template #item="{element, index}">
-                <div class="bg-white shadow hover:shadow-md rounded"
-                     :class="{'border-blue-900' : formItemActive === index}"
-                >
-                  <div class="flex items-center p-4 gap-4">
-                    <div v-html="formPackage[element.type].icon" class="flex-none w-8 h-8 flex items-center"></div>
+        <ul v-if="formData.length" class="p-4 pl-2">
+          <draggable v-model="formData" @start="drag=true" @end="drag=false" class="flex flex-col  gap-4">
+            <template #item="{element, index}">
+              <div class="bg-white shadow hover:shadow-md rounded"
+                   :class="{'border-blue-900' : formItemActive === index}"
+              >
+                <div class="flex items-center p-4 gap-4">
+                  <div v-html="formPackage[element.type].icon" class="flex-none w-8 h-8 flex items-center"></div>
 
-                    <div class="flex-grow">
-                      <div class="text-base mb-2">@{{ element.name }} <span class="ml-4 text-gray-400"># @{{ element.field }}</span>
-                      </div>
-                      <n-tag size="small">@{{formPackage[element.type].name}}</n-tag>
+                  <div class="flex-grow">
+                    <div class="text-base mb-2">@{{ element.name }} <span class="ml-4 text-gray-400"># @{{ element.field }}</span>
                     </div>
+                    <n-tag size="small">@{{formPackage[element.type].name}}</n-tag>
+                  </div>
 
-                    <div class="flex-none flex gap-4">
-                      <n-button type="primary" size="small" @click="editForm(index, $event)">编辑</n-button>
-                      <n-button type="error" size="small" @click="delForm(index)">删除</n-button>
-                    </div>
+                  <div class="flex-none flex gap-4">
+                    <a-button type="primary" size="small" @click="editForm(index, $event)">编辑</a-button>
+                    <a-button size="small" @click="delForm(index)">删除</a-button>
                   </div>
                 </div>
-              </template>
-            </draggable>
-          </ul>
-      </n-layout>
+              </div>
+            </template>
+          </draggable>
+        </ul>
+      </div>
     </div>
-    <n-modal :show="dialog">
-      <n-card class="max-w-2xl my-4" content-style="padding: 0;">
-        <div className="flex items-center p-4 border-b border-gray-300">
-          <div className="flex-grow text-xl">编辑元素</div>
-          <div className="cursor-pointer btn-close h-6 w-6 text-gray-600 hover:text-red-900" @click="dialog = false">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </div>
-        </div>
-        <div class="p-4 flex flex-col space-y-4">
-          <div>
-            <label class="mb-2 block text-gray-600">展示名称</label>
-            <n-input placeholder="展示名称，如标题" v-model:value="formItem.name"/>
-          </div>
-          <div>
-            <label class="mb-2 block text-gray-600">字段名称</label>
-            <n-input placeholder="数据库字段名称，如 title" v-model:value="formItem.field"/>
-          </div>
-          <div>
-            <label class="mb-2 block text-gray-600">列表展示</label>
-            <n-switch v-model:value="formItem.list"/>
-          </div>
-          <div v-for="item in formPackage[formItem.type].options">
-            <div v-if="item.type === 'list'">
-              <label class="mb-2 block text-gray-600">@{{ item.name }}</label>
-              <n-dynamic-input v-model:value="formItem.data[item.field]" placeholder="请输入选项内容"/>
-            </div>
-            <div v-if="item.type === 'textarea'">
-              <label class="mb-2 block text-gray-500">@{{ item.name }}</label>
-              <n-input
-                v-model:value="formItem.data[item.field]"
-                type="textarea"
-              />
-            </div>
-            <div v-if="item.type === 'text'">
-              <label class="mb-2 block text-gray-500">@{{ item.name }}</label>
-              <n-input v-model:value="formItem.data[item.field]"/>
-            </div>
-            <div v-if="item.type === 'radio'" class="flex flex-col space-y-2">
-              <label class="mb-2 block text-gray-500">@{{ item.name }}</label>
-              <n-radio-group v-model:value="formItem.data[item.field]" name="radiogroup">
-                <n-space>
-                  <n-radio v-for="(value, key) in item.data" :key="key" :value="key">
-                    @{{ value }}
-                  </n-radio>
-                </n-space>
-              </n-radio-group>
-            </div>
-          </div>
-        </div>
-        <div className="p-4 flex justify-end gap-2">
-          <n-button @click="dialog = false">取消</n-button>
-          <n-button type="primary" @click="saveForm">保存</n-button>
-        </div>
-      </n-card>
-    </n-modal>
-  </div>
+    <a-modal :visible="dialog" title="编辑元素" :unmount-on-close="true" @cancel="dialog = false; formItem = {}" @ok="saveForm">
+      <a-form direction="vertical" :model="formItem">
+        <a-form-item field="name" label="展示名称">
+          <a-input placeholder="展示名称，如标题" v-model="formItem.name"/>
+        </a-form-item>
+        <a-form-item field="field" label="字段名称">
+          <a-input placeholder="数据库字段名称，如 title" v-model="formItem.field"/>
+        </a-form-item>
+        <a-form-item field="field" label="列表展示">
+          <a-switch v-model="formItem.list"/>
+        </a-form-item>
+        <template v-if="formPackage[formItem.type]" v-for="item in formPackage[formItem.type].options">
+          <a-form-item v-if="item.type === 'list'" field="data[item.field]" :label="item.name">
+            <app-dynamic-data v-model:value="formItem.data[item.field]"/>
+          </a-form-item>
+          <a-form-item  v-if="item.type === 'textarea'" field="data[item.field]" :label="item.name">
+            <a-textarea v-model="formItem.data[item.field]"/>
+          </a-form-item >
+          <a-form-item v-if="item.type === 'text'" field="data[item.field]" :label="item.name">
+            <a-input v-model="formItem.data[item.field]"/>
+          </a-form-item>
+          <a-form-item v-if="item.type === 'radio'" field="data[item.field]" :label="item.name">
+            <a-radio-group v-model="formItem.data[item.field]">
+              <a-radio v-for="(value, key) in item.data" :value="key">
+                @{{ value }}
+              </a-radio>
+            </a-radio-group>
+          </a-form-item>
+        </template>
+      </a-form>
+    </a-modal>
+  </app-layout>
 </template>
 
 <script>
@@ -142,14 +112,9 @@
           type: 'radio',
           data: {
             'text': '文本',
+            'textarea': '多行文本',
             'number': '数字',
-            'email': '邮箱',
-            'tel': '手机号码',
             'password': '密码',
-            'ip': 'IP地址',
-            'url': '网址',
-            'date': '日期',
-            'time': '时间',
           }
         }
       ],
@@ -183,7 +148,7 @@
       data: {
         options: [
           '选项一',
-          '选项二'
+          '选项二',
         ]
       }
     },

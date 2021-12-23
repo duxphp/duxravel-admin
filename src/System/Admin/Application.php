@@ -7,7 +7,7 @@ class Application extends \Modules\System\Admin\Common
 
     public function index()
     {
-        $list = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
+        app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
         $data = app(\Duxravel\Core\Util\Menu::class)->getApps();
 
 
