@@ -41,7 +41,7 @@ class FormData extends \Modules\System\Admin\Expend
             }
         }
 
-        $table->column('#', 'data_id')->width(80);
+        $table->column('#', 'data_id')->width(130);
         foreach ($this->formInfo->data as $vo) {
             if ($vo['list']) {
                 if ($vo['type'] == 'image') {
@@ -55,7 +55,7 @@ class FormData extends \Modules\System\Admin\Expend
         }
         $table->column('状态', 'status')->toggle('status', 'admin.tools.formData.status', ['form' => $this->formInfo->form_id, 'id' => 'data_id'])->width(100);
 
-        $column = $table->column('操作')->width(100);
+        $column = $table->column('操作')->width(120);
         $column->link('编辑', 'admin.tools.formData.page', ['form' => $this->formInfo->form_id, 'id' => 'data_id'])->type('dialog');
         $column->link('删除', 'admin.tools.formData.del', ['form' => $this->formInfo->form_id, 'id' => 'data_id'])->type('ajax', ['method' => 'post']);
 
