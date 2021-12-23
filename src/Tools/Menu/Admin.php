@@ -27,23 +27,6 @@ Menu::add('form', [
     'route' => 'admin.tools.form'
 ]);
 
-
-$curName = request()->route()->getName();
-$formInfo = [];
-if (strpos($curName, 'admin.tools.formData', 0) !== false) {
-    $formInfo = \Duxravel\Core\Model\Form::find(request()->get('form'));
-}
-
-Menu::add('form_data', [
-    'name' => $formInfo ? $formInfo->name : '表单数据',
-    'icon' => $icon,
-    'hidden' => true,
-    'order' => 1000,
-    'route' => 'admin.tools.formData',
-    'params' => $formInfo ? ['form' => request()->get('form')] : []
-]);
-
-
 Menu::app([
     'name' => '自定义表单',
     'desc' => '多功能自定义表单功能',
@@ -55,6 +38,15 @@ Menu::app([
 
 $formList = \Duxravel\Core\Model\Form::where('manage', 0)->get();
 foreach ($formList as $vo) {
+    Menu::add('form_data', [
+        'name' => $vo['name'],
+        'icon' => $icon,
+        'hidden' => true,
+        'order' => 1000,
+        'route' => 'admin.tools.formData',
+        'params' => ['form' => $vo->form_id],
+    ]);
+
     Menu::app([
         'name' => $vo['name'],
         'desc' => $vo['description'],
