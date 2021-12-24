@@ -71,7 +71,7 @@ Route::group([
         'auth_group' => '文件管理'
     ], function () {
         Route::manage(\Modules\System\Admin\FilesDir::class)->only(['index'])->make();
-        Route::manage(\Modules\System\Admin\Files::class)->only(['index', 'page', 'save', 'del'])->make();
+        Route::manage(\Modules\System\Admin\Files::class)->only(['index', 'del'])->make();
     });
 
     Route::group([
