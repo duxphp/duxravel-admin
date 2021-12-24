@@ -41,6 +41,7 @@ Menu::add('system', [
         'order' => 201,
     ], function () {
         Menu::link('接口授权', 'admin.system.api');
+        Menu::link('文件管理', 'admin.system.files');
         Menu::link('任务队列', 'admin.system.task');
     });
 

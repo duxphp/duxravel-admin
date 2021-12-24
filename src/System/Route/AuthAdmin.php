@@ -7,7 +7,6 @@ Route::group(['public' => true], function () {
     /**
      * 公共资源
      */
-
     Route::get('menu', ['uses' => 'Modules\System\Admin\Index@menu', 'desc' => '系统菜单'])->name('admin.menu');
     Route::get('side/{app}', ['uses' => 'Modules\System\Admin\Index@side', 'desc' => '系统边栏'])->name('admin.side');
     Route::get('development', ['uses' => 'Modules\System\Admin\Development@index', 'desc' => '运维概况'])->name('admin.development');
@@ -66,6 +65,13 @@ Route::group([
         Route::get('operate', ['uses' => 'Modules\System\Admin\VisitorOperate@index', 'desc' => '列表'])->name('admin.system.operate');
         Route::get('operate/ajax', ['uses' => 'Modules\System\Admin\VisitorOperate@ajax', 'desc' => '列表'])->name('admin.system.operate.ajax');
         Route::get('operate/info/{id}', ['uses' => 'Modules\System\Admin\VisitorOperate@info', 'desc' => '详情'])->name('admin.system.operate.info');
+    });
+
+    Route::group([
+        'auth_group' => '文件管理'
+    ], function () {
+        Route::manage(\Modules\System\Admin\FilesDir::class)->only(['index'])->make();
+        Route::manage(\Modules\System\Admin\Files::class)->only(['index', 'page', 'save', 'del'])->make();
     });
 
     Route::group([
