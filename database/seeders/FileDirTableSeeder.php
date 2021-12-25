@@ -1,6 +1,6 @@
 <?php
 
-namespace Duxravel\System\Seeders;
+namespace Modules\System\Seeders;
 
 use Illuminate\Database\Seeder;
 

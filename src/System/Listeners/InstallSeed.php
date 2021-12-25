@@ -1,6 +1,6 @@
 <?php
 
-namespace Duxravel\System\Listeners;
+namespace Modules\System\Listeners;
 
 /**
  * 数据安装接口
@@ -14,6 +14,6 @@ class InstallSeed
      */
     public function handle($event)
     {
-        return \Duxravel\System\Seeders\DatabaseSeeder::class;
+        return \Modules\System\Seeders\DatabaseSeeder::class;
     }
 }
