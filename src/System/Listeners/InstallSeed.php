@@ -10,7 +10,8 @@ class InstallSeed
 
     /**
      * @param $event
-     * @return array[]
+     *
+     * @return string
      */
     public function handle($event)
     {
