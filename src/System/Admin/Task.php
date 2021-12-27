@@ -74,11 +74,11 @@ class Task extends \Modules\System\Admin\Expend
                 0 => 'red'
             ]);
             $table->header(Widget::StatsCard(function (Widget\StatsCard $card) use ($statsAll, $statsDown, $statsUp) {
-                $card->item('全部队列', $statsAll, Widget::icon('cloud'), 'blue');
-                $card->item('处理中', $statsDown, Widget::icon('cloud-download'), 'green');
-                $card->item('待处理', $statsUp, Widget::icon('cloud-upload'), 'yellow');
+                $card->item('全部队列', $statsAll);
+                $card->item('处理中', $statsDown);
+                $card->item('待处理', $statsUp);
                 $statsFail = \Duxravel\Core\Model\JobsFailed::count();
-                $card->item('失败队列', $statsFail, Widget::icon('ban'), 'red');
+                $card->item('失败队列', $statsFail);
             }));
 
         } else {
@@ -86,7 +86,7 @@ class Task extends \Modules\System\Admin\Expend
             $table = new Table($data);
 
             $table->title('任务队列');
-            $table->column('任务 | 参数', 'payload', function ($value) {
+            $table->column('任务 / 参数', 'payload', function ($value) {
                 $data = (array)unserialize($value['data']['command']);
                 return $data["\x00*\x00class"] . '@' . $data["\x00*\x00method"];
             })->desc('payload', function ($value) {
@@ -94,7 +94,7 @@ class Task extends \Modules\System\Admin\Expend
                 $params = $data["\x00*\x00params"];
                 return $params ? json_encode($params) : '-';
             });
-            $table->column('链接 | 队列', 'connection')->desc('queue');
+            $table->column('链接 / 队列', 'connection')->desc('queue');
             $table->column('失败时间', 'failed_at');
 
 
@@ -102,18 +102,10 @@ class Task extends \Modules\System\Admin\Expend
         }
 
 
-        $table->filterType('全部')->icon(Widget::icon('send', function ($icon) {
-            $icon->class('align-middle');
-        }));
-        $table->filterType('处理中')->icon(Widget::icon('file-invoice', function ($icon) {
-            $icon->class('align-middle');
-        }));
-        $table->filterType('待处理')->icon(Widget::icon('recycle', function ($icon) {
-            $icon->class('align-middle');
-        }));
-        $table->filterType('失败')->icon(Widget::icon('recycle', function ($icon) {
-            $icon->class('align-middle');
-        }));
+        $table->filterType('全部');
+        $table->filterType('处理中');
+        $table->filterType('待处理');
+        $table->filterType('失败');
 
         return $table;
     }
