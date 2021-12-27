@@ -86,7 +86,7 @@ Route::group([
     Route::group([
         'auth_group' => '任务调度'
     ], function () {
-        Route::get('task', ['uses' => 'Modules\System\Admin\Task@index', 'desc' => '列表'])->name('admin.system.task');
+        Route::manage(\Modules\System\Admin\Task::class)->only(['index'])->make();
     });
 
 
