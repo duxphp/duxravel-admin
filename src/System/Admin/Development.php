@@ -74,7 +74,7 @@ class Development extends Common
         $fileNumChart = (new \Duxravel\Core\Util\Charts)
             ->column()
             ->date(date('Y-m-d', $startTime), date('Y-m-d'), '1 days', 'm-d')
-            ->data('文件数量', $fileNumData->toArray())
+            ->data('文件数量', $fileNumData->toArray(), 'Y-m-d')
             ->height(200)
             ->render(true);
 
@@ -92,7 +92,7 @@ class Development extends Common
         $logNumChart = (new \Duxravel\Core\Util\Charts)
             ->column()
             ->date(date('Y-m-d', $startTime), date('Y-m-d'), '1 days', 'm-d')
-            ->data('操作记录', $operateData->toArray())
+            ->data('操作记录', $operateData->toArray(), 'Y-m-d')
             ->render(true);
 
         $this->node['logNumChart'] = $logNumChart;
