@@ -319,7 +319,7 @@
                   <div class="ml-2">Redis版本</div>
                 </dt>
                 <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
-                  {{\Illuminate\Support\Facades\Redis::info()['redis_version']}}
+                  {{ extension_loaded('redis') ? \Illuminate\Support\Facades\Redis::info()['redis_version'] : '暂未安装'}}
                 </dd>
               </div>
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
