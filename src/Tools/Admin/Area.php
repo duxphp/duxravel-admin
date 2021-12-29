@@ -39,7 +39,23 @@ class Area extends \Modules\System\Admin\Expend
             'required',
         ], [
             'required' => '请选择上传数据',
-        ])->help('数据来源：<a href="http://lbsyun.baidu.com/index.php?title=open/dev-res" target="_blank">【百度地图行政区划adcode映射表】</a>，上传后将覆盖现有数据', true);
+        ])->help([
+            [
+                'nodeName' => 'span',
+                'child' => '数据来源'
+            ],
+            [
+                'nodeName' => 'a',
+                'class' => 'text-blue-600',
+                'href' => 'http://lbsyun.baidu.com/index.php?title=open/dev-res',
+                'target' => '_blank',
+                'child' => '【百度地图行政区划adcode映射表】',
+            ],
+            [
+                'nodeName' => 'span',
+                'child' => '，上传后将覆盖现有数据'
+            ]
+        ], true);
         return $form->render();
     }
 
