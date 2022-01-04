@@ -3,8 +3,10 @@
 namespace Modules\System\Model;
 
 use \Illuminate\Foundation\Auth\User;
+use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Duxravel\Core\Traits\RoleHas;
+
 
 /**
  * Class SystemUser
@@ -12,7 +14,10 @@ use Duxravel\Core\Traits\RoleHas;
  */
 class SystemUser extends User implements JWTSubject
 {
+
     use RoleHas;
+    use Notifiable;
+
 
     protected $table = 'system_user';
 
