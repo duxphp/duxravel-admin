@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 class Index extends Common
 {
 
+    use \Duxravel\Core\Manage\Notify;
+
     public function index()
     {
         return View::manage();

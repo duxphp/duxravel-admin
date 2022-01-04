@@ -14,6 +14,14 @@ Route::group(['public' => true], function () {
     Route::post('upload', ['uses' => 'Modules\System\Admin\Upload@ajax', 'desc' => '文件上传'])->name('admin.upload');
     Route::post('uploadRemote', ['uses' => 'Modules\System\Admin\Upload@remote', 'desc' => '远程保存'])->name('admin.uploadRemote');
     Route::get('map/ip', ['uses' => 'Modules\System\Admin\Map@weather', 'desc' => 'ip解析'])->name('admin.map.ip');
+
+    /**
+     * 消息通知
+     */
+    Route::get('notification', ['uses' => 'Modules\System\Admin\Index@getNotify', 'desc' => '获取通知'])->name('admin.notification');
+    Route::get('notification/read', ['uses' => 'Modules\System\Admin\Index@readNotify', 'desc' => '读取消息'])->name('admin.notification.read');
+    Route::get('notification/del', ['uses' => 'Modules\System\Admin\Index@delNotify', 'desc' => '删除消息'])->name('admin.notification.del');
+
     /**
      * 系统统计
      */
