@@ -42,7 +42,7 @@ class AdminServiceProvider extends ServiceProvider
     {
 
         // 注册公共路由
-        $router->group(['prefix' => 'admin', 'public' => true, 'auth_has' => 'admin', 'middleware' => ['web']], function () {
+        $router->group(['prefix' => 'admin', 'public' => true, 'middleware' => ['web']], function () {
             $list = \Duxravel\Core\Util\Cache::routeList('Admin');
             foreach ($list as $file) {
                 if (is_file($file)) {
