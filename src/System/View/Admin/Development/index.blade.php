@@ -319,7 +319,18 @@
                   <div class="ml-2">Redis版本</div>
                 </dt>
                 <dd class="lg:mt-1 text-sm sm:mt-0 sm:col-span-2">
-                  {{ extension_loaded('redis') ? \Illuminate\Support\Facades\Redis::info()['redis_version'] : '暂未安装'}}
+                  @php
+                  try {
+                      if (extension_loaded('redis')) {
+                          $redisVersion = \Illuminate\Support\Facades\Redis::info()['redis_version'];
+                      } else {
+                          $redisVersion = '未安装扩展';
+                      }
+                  } catch (\Exception $e) {
+                      $redisVersion = '连接服务器失败';
+                  }
+                  echo $redisVersion;
+                  @endphp
                 </dd>
               </div>
               <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
