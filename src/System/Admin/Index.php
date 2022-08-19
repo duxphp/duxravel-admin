@@ -3,7 +3,6 @@
 namespace Modules\System\Admin;
 
 use Duxravel\Core\Util\View;
-use Illuminate\Support\Facades\DB;
 
 class Index extends Common
 {
@@ -17,12 +16,13 @@ class Index extends Common
 
     public function menu()
     {
-        $list = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
-        $list = array_values($list);
+        $menu = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
+        $list = array_values($menu['list']);
         $apps = app(\Duxravel\Core\Util\Menu::class)->getApps();
         return app_success('ok', [
             'list' => $list,
-            'apps' => $apps
+            'apps' => $apps,
+            'static' => $menu['static']
         ]);
     }
 }
