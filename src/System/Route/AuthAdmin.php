@@ -18,7 +18,7 @@ Route::group(['public' => true], function () {
     /**
      * 消息通知
      */
-    Route::get('notification', ['uses' => 'Modules\System\Admin\Index@getNotify', 'desc' => '获取通知'])->name('admin.notification');
+    Route::get('notification', ['uses' => 'Modules\System\Admin\Index@getNotify', 'desc' => '获取通知', 'ignore_operate_log' => true])->name('admin.notification');
     Route::get('notification/read', ['uses' => 'Modules\System\Admin\Index@readNotify', 'desc' => '读取消息'])->name('admin.notification.read');
     Route::get('notification/del', ['uses' => 'Modules\System\Admin\Index@delNotify', 'desc' => '删除消息'])->name('admin.notification.del');
 
