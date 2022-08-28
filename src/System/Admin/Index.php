@@ -16,13 +16,14 @@ class Index extends Common
 
     public function menu()
     {
-        $menu = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
-        $list = array_values($menu['list']);
+        $list = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
+        $static = app(\Duxravel\Core\Util\Menu::class)->getStatic('admin');
+        $list = array_values($list);
         $apps = app(\Duxravel\Core\Util\Menu::class)->getApps();
         return app_success('ok', [
             'list' => $list,
             'apps' => $apps,
-            'static' => $menu['static']
+            'static' => $static
         ]);
     }
 }
