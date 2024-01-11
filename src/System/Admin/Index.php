@@ -14,6 +14,7 @@ class Index extends Common
         return View::manage();
     }
 
+
     public function menu()
     {
         $list = app(\Duxravel\Core\Util\Menu::class)->getManage('admin');
